@@ -1,2 +1,5 @@
-# OtusSpring
-spring-2020
+# Об авторе
+
+Студент:  
+Тогоев Руслан  
+rtogoev@megalabs.ru  
