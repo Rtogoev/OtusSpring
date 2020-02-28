@@ -8,6 +8,19 @@
         <constructor-arg name="testConfigName" value="test_config.csv"/>
     </bean>
 
-    <bean id="fileService" class="ru.otus.spring01.service.TestServiceImpl">
+    <bean id="keyboardReaderService" class="ru.otus.spring01.service.KeyboardReaderServiceImpl">
+    </bean>
+
+    <bean id="askQuestionService" class="ru.otus.spring01.service.AskQuestionServiceImpl">
+        <constructor-arg ref="keyboardReaderService"/>
+    </bean>
+
+    <bean id="greetingsService" class="ru.otus.spring01.service.GreetingsServiceImpl">
+        <constructor-arg ref="keyboardReaderService"/>
+    </bean>
+
+    <bean id="testService" class="ru.otus.spring01.service.TestServiceImpl">
+        <constructor-arg name="askQuestionService" ref="askQuestionService"/>
+        <constructor-arg name="greetingsService" ref="greetingsService"/>
     </bean>
 </beans>

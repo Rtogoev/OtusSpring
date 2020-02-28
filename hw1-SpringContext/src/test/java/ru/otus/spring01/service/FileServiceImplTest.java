@@ -1,23 +1,17 @@
 package ru.otus.spring01.service;
 
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.test.context.junit4.SpringRunner;
-import ru.otus.spring01.Main;
 import ru.otus.spring01.domain.TestStep;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = Main.class)
 public class FileServiceImplTest {
 
     private final static List<TestStep> expectedTestSteps = new ArrayList<>();
@@ -37,6 +31,6 @@ public class FileServiceImplTest {
     @Test
     public void readQuestions() {
         List<TestStep> actualTestSteps = fileService.readQuestions();
-        assertEquals(expectedTestSteps, actualTestSteps);
+        Assert.assertEquals(expectedTestSteps, actualTestSteps);
     }
 }
