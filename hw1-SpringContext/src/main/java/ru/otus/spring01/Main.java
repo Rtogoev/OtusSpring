@@ -9,9 +9,11 @@ public class Main {
 
     public static void main(String[] args) {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/spring-context.xml");
-        TestService testService = context.getBean(TestService.class);
         FileService fileService = context.getBean(FileService.class);
-        fileService.readQuestions();
+        TestService testService = context.getBean(TestService.class);
+        testService.startTest(
+                fileService.readQuestions()
+        );
 
     }
 }

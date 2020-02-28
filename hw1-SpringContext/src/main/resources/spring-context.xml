@@ -4,7 +4,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean name="dao" id="personDao" class="ru.otus.spring01.service.FileServiceImpl">
-        <property name="testConfigName" value="test_config.csv"/>
+    <bean id="fileService" class="ru.otus.spring01.service.FileServiceImpl">
+        <constructor-arg name="testConfigName" value="test_config.csv"/>
+    </bean>
+
+    <bean id="fileService" class="ru.otus.spring01.service.TestServiceImpl">
     </bean>
 </beans>

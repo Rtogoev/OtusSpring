@@ -1,14 +1,14 @@
 package ru.otus.spring01.domain;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class TestStep {
     private String question;
-    private String[] answerVariants;
+    private List<String> answerVariants;
     private int rightVariant;
 
-    public TestStep(String question, String[] answerVariants, int rightVariant) {
+    public TestStep(String question, List<String> answerVariants, int rightVariant) {
         this.question = question;
         this.answerVariants = answerVariants;
         this.rightVariant = rightVariant;
@@ -22,11 +22,11 @@ public class TestStep {
         this.question = question;
     }
 
-    public String[] getAnswerVariants() {
+    public List<String> getAnswerVariants() {
         return answerVariants;
     }
 
-    public void setAnswerVariants(String[] answerVariants) {
+    public void setAnswerVariants(List<String> answerVariants) {
         this.answerVariants = answerVariants;
     }
 
@@ -39,28 +39,26 @@ public class TestStep {
     }
 
     @Override
-    public String toString() {
-        return "Question{" +
-                "question='" + question + '\'' +
-                ", answerVariants=" + Arrays.toString(answerVariants) +
-                ", rightVariant=" + rightVariant +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof TestStep)) return false;
-        TestStep testStep1 = (TestStep) o;
-        return rightVariant == testStep1.rightVariant &&
-                Objects.equals(question, testStep1.question) &&
-                Arrays.equals(answerVariants, testStep1.answerVariants);
+        TestStep testStep = (TestStep) o;
+        return rightVariant == testStep.rightVariant &&
+                Objects.equals(question, testStep.question) &&
+                Objects.equals(answerVariants, testStep.answerVariants);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(question, rightVariant);
-        result = 31 * result + Arrays.hashCode(answerVariants);
-        return result;
+        return Objects.hash(question, answerVariants, rightVariant);
+    }
+
+    @Override
+    public String toString() {
+        return "TestStep{" +
+                "question='" + question + '\'' +
+                ", answerVariants=" + answerVariants +
+                ", rightVariant=" + rightVariant +
+                '}';
     }
 }
