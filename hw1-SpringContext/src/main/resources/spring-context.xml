@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="fileService" class="ru.otus.spring01.service.FileServiceImpl">
+        <constructor-arg name="testConfigName" value="test_config.csv"/>
+    </bean>
+
+    <bean id="keyboardReaderService" class="ru.otus.spring01.service.KeyboardReaderServiceImpl">
+    </bean>
+
+    <bean id="askQuestionService" class="ru.otus.spring01.service.AskQuestionServiceImpl">
+        <constructor-arg ref="keyboardReaderService"/>
+    </bean>
+
+    <bean id="greetingsService" class="ru.otus.spring01.service.GreetingsServiceImpl">
+        <constructor-arg ref="keyboardReaderService"/>
+    </bean>
+
+    <bean id="testService" class="ru.otus.spring01.service.TestServiceImpl">
+        <constructor-arg name="askQuestionService" ref="askQuestionService"/>
+        <constructor-arg name="greetingsService" ref="greetingsService"/>
+    </bean>
+</beans>
