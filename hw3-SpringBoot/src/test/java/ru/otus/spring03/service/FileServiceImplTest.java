@@ -1,16 +1,17 @@
-package ru.otus.spring02.service;
+package ru.otus.spring03.service;
 
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.context.MessageSource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import ru.otus.spring03.domain.TestStep;
-import ru.otus.spring03.service.FileService;
-import ru.otus.spring03.service.FileServiceImpl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 
 public class FileServiceImplTest {
@@ -20,7 +21,7 @@ public class FileServiceImplTest {
 
     @Before
     public void setUp() {
-        fileService = new FileServiceImpl("en_test_config.csv");
+        fileService = new FileServiceImpl(messageSource());
         expectedTestSteps.add(new TestStep("Question1", Arrays.asList("variant1", "variant2", "variant3"), 1));
         expectedTestSteps.add(new TestStep("Question2", Arrays.asList("variant1", "variant2", "variant3", "variant4"), 2));
         expectedTestSteps.add(new TestStep("Question3", Arrays.asList("variant1", "variant2", "variant3", "variant4", "variant5"), 3));
@@ -30,7 +31,14 @@ public class FileServiceImplTest {
 
     @Test
     public void readQuestions() {
-        List<TestStep> actualTestSteps = fileService.readQuestions();
+        List<TestStep> actualTestSteps = fileService.readQuestions(new Locale("en", "US"));
         Assert.assertEquals(expectedTestSteps, actualTestSteps);
+    }
+
+    private MessageSource messageSource() {
+        ReloadableResourceBundleMessageSource ms = new ReloadableResourceBundleMessageSource();
+        ms.setBasename("/messages");
+        ms.setDefaultEncoding("UTF-8");
+        return ms;
     }
 }

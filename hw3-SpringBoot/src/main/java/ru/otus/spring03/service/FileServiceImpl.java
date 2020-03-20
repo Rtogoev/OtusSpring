@@ -1,6 +1,6 @@
 package ru.otus.spring03.service;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import ru.otus.spring03.domain.TestStep;
 
@@ -10,28 +10,22 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class FileServiceImpl implements FileService {
-    private String testConfigName;
+    private final MessageSource messageSource;
 
-    public FileServiceImpl(@Value("${config.path}") String testConfigName) {
-        this.testConfigName = testConfigName;
-    }
-
-    public String getTestConfigName() {
-        return testConfigName;
-    }
-
-    public void setTestConfigName( String testConfigName) {
-        this.testConfigName = testConfigName;
+    public FileServiceImpl(MessageSource messageSource) {
+        this.messageSource = messageSource;
     }
 
     @Override
-    public List<TestStep> readQuestions() {
+    public List<TestStep> readQuestions(Locale locale) {
+        String questionsPath = messageSource.getMessage("questions.path", null, locale);
         List<TestStep> testSteps = new ArrayList<>();
         try {
-            Path path = Paths.get(ClassLoader.getSystemResource(testConfigName).toURI());
+            Path path = Paths.get(ClassLoader.getSystemResource(questionsPath).toURI());
             try (BufferedReader reader = Files.newBufferedReader(path)) {
                 while (reader.ready()) {
                     String[] split = reader.readLine().split(",");
