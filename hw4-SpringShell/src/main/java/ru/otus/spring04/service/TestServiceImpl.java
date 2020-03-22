@@ -34,13 +34,8 @@ public class TestServiceImpl implements TestService {
         this.askQuestionService = askQuestionService;
         this.fileService = fileService;
         this.localeName = localeName;
-    }
-
-    @PostConstruct
-    void init() throws IOException {
         locales.put("ru", new Locale("ru","RU"));
         locales.put("en", new Locale("en","US"));
-        execute();
     }
 
     @Override

@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class TestStep {
-    private String question;
-    private List<String> answerVariants;
-    private int rightVariant;
+    private final String question;
+    private final List<String> answerVariants;
+    private final int rightVariant;
 
     public TestStep(String question, List<String> answerVariants, int rightVariant) {
         this.question = question;
@@ -18,24 +18,12 @@ public class TestStep {
         return question;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
     public List<String> getAnswerVariants() {
         return answerVariants;
     }
 
-    public void setAnswerVariants(List<String> answerVariants) {
-        this.answerVariants = answerVariants;
-    }
-
     public int getRightVariant() {
         return rightVariant;
-    }
-
-    public void setRightVariant(int rightVariant) {
-        this.rightVariant = rightVariant;
     }
 
     @Override
