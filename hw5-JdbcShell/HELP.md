@@ -1,21 +1,17 @@
-# Read Me First
-The following was discovered as part of building this project:
+Домашнее задание  
+Создать приложение хранящее информацию о книгах в библиотеке  
+Цель: Цель: использовать возможности Spring JDBC и spring-boot-starter-jdbc для подключения к реляционным базам данных   
+Результат: приложение с хранением данных в реляционной БД, которое в дальнейшем будем развивать  
+Это домашнее задание выполняется НЕ на основе предыдущего.  
 
-* The original package name 'ru.otus.hw5-JdbcShell' is invalid and this project uses 'ru.otus.hw5JdbcShell' instead.
+1. Использовать Spring JDBC и реляционную базу (H2 или настоящую реляционную БД). Настоятельно рекомендуем использовать NamedParametersJdbcTemplate
+2. Предусмотреть таблицы авторов, книг и жанров.
+3. Предполагаются отношения один-ко-многим (у книги один автор, но у автора может быть несколько книг, то же касается книг и жанров). Опциональное усложнение - отношения много-ко-многим.
+4. Интерфейс выполняется на Spring Shell (CRUD книги обязателен, операции с авторами и журналами - как будет удобно).
+5. Скрипт создания таблиц и скрипт заполнения данными должны автоматически запускаться
+с помощью spring-boot-starter-jdbc.
+6. Покрыть тестами, насколько это возможно.
 
-# Getting Started
-
-### Reference Documentation
-For further reference, please consider the following sections:
-
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.3.0.M4/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.3.0.M4/maven-plugin/reference/html/#build-image)
-* [JDBC API](https://docs.spring.io/spring-boot/docs/2.2.6.RELEASE/reference/htmlsingle/#boot-features-sql)
-
-### Guides
-The following guides illustrate how to use some features concretely:
-
-* [Accessing Relational Data using JDBC with Spring](https://spring.io/guides/gs/relational-data-access/)
-* [Managing Transactions](https://spring.io/guides/gs/managing-transactions/)
-
+Рекомендации к выполнению работы:
+1. НЕ делать AbstractDao.
+2. НЕ делать наследования в тестах
