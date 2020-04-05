@@ -11,6 +11,14 @@ public class GenreDto {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "GenreDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
     public Long getId() {
         return id;
     }

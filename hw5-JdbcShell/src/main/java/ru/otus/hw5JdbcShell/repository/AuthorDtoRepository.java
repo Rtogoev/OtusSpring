@@ -1,5 +1,6 @@
 package ru.otus.hw5JdbcShell.repository;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
@@ -38,13 +39,35 @@ public class AuthorDtoRepository {
 
     public AuthorDto select(long id) {
         Map<String, Object> params = Collections.singletonMap("id", id);
-        return namedParameterJdbcOperations.queryForObject(
-                "select * from AUTHORS where id = :id", params, AUTHOR_DTO_ROW_MAPPER
-        );
+        try {
+            return namedParameterJdbcOperations.queryForObject(
+                    "select * from AUTHORS where id = :id", params, AUTHOR_DTO_ROW_MAPPER
+            );
+        } catch (EmptyResultDataAccessException e) {
+            // do nothing
+        }
+        return null;
+    }
+
+    public AuthorDto select(String name) {
+        Map<String, Object> params = Collections.singletonMap("name", name);
+        try {
+            return namedParameterJdbcOperations.queryForObject(
+                    "select * from AUTHORS where name = :name", params, AUTHOR_DTO_ROW_MAPPER
+            );
+        } catch (EmptyResultDataAccessException e) {
+            // do nothing
+        }
+        return null;
     }
 
     public List<AuthorDto> selectAll() {
-        return namedParameterJdbcOperations.query("select * from AUTHORS", AUTHOR_DTO_ROW_MAPPER);
+        try {
+            return namedParameterJdbcOperations.query("select * from AUTHORS", AUTHOR_DTO_ROW_MAPPER);
+        } catch (EmptyResultDataAccessException e) {
+            // do nothing
+        }
+        return Collections.emptyList();
     }
 
     public void update(long id, String name) {

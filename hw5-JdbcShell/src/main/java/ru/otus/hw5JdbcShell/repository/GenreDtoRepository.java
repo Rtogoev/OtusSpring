@@ -1,5 +1,6 @@
 package ru.otus.hw5JdbcShell.repository;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
@@ -38,13 +39,36 @@ public class GenreDtoRepository {
 
     public GenreDto select(long id) {
         Map<String, Object> params = Collections.singletonMap("id", id);
-        return namedParameterJdbcOperations.queryForObject(
-                "select * from GENRES where id = :id", params, GENRE_DTO_ROW_MAPPER
-        );
+        try {
+            return namedParameterJdbcOperations.queryForObject(
+                    "select * from GENRES where id = :id", params, GENRE_DTO_ROW_MAPPER
+            );
+        } catch (EmptyResultDataAccessException e) {
+            // do nothing
+        }
+        return null;
+    }
+
+
+    public GenreDto select(String name) {
+        Map<String, Object> params = Collections.singletonMap("name", name);
+        try {
+            return namedParameterJdbcOperations.queryForObject(
+                    "select * from GENRES where name = :name", params, GENRE_DTO_ROW_MAPPER
+            );
+        } catch (EmptyResultDataAccessException e) {
+            // do nothing
+        }
+        return null;
     }
 
     public List<GenreDto> selectAll() {
-        return namedParameterJdbcOperations.query("select * from GENRES", GENRE_DTO_ROW_MAPPER);
+        try {
+            return namedParameterJdbcOperations.query("select * from GENRES", GENRE_DTO_ROW_MAPPER);
+        } catch (EmptyResultDataAccessException e) {
+            // do nothing
+        }
+        return Collections.emptyList();
     }
 
     public void update(long id, String name) {

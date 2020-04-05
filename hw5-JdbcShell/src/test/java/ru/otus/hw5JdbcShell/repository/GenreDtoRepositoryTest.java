@@ -21,20 +21,12 @@ class GenreDtoRepositoryTest {
         Long id = genreDtoRepository.insert(name);
 
         GenreDto expectedbGenreDto = new GenreDto(id, name);
-
-        Assertions.assertEquals(
-                expectedbGenreDto,
-                genreDtoRepository.select(expectedbGenreDto.getId())
-        );
-
+        checkSelect(expectedbGenreDto);
         expectedbGenreDto = new GenreDto(expectedbGenreDto.getId(), "test2");
 
         genreDtoRepository.update(expectedbGenreDto.getId(), expectedbGenreDto.getName());
 
-        Assertions.assertEquals(
-                expectedbGenreDto,
-                genreDtoRepository.select(expectedbGenreDto.getId())
-        );
+        checkSelect(expectedbGenreDto);
 
         genreDtoRepository.delete(expectedbGenreDto.getId());
 
@@ -53,5 +45,19 @@ class GenreDtoRepositoryTest {
         Assertions.assertTrue(GenreDtos.contains(expected3));
         Assertions.assertTrue(GenreDtos.contains(expected4));
         Assertions.assertTrue(GenreDtos.contains(expected5));
+    }
+
+    private void checkSelect(GenreDto expectedbGenreDto) {
+
+        Assertions.assertEquals(
+                expectedbGenreDto,
+                genreDtoRepository.select(expectedbGenreDto.getId())
+        );
+
+        Assertions.assertEquals(
+                expectedbGenreDto,
+                genreDtoRepository.select(expectedbGenreDto.getName())
+        );
+
     }
 }

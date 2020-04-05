@@ -15,6 +15,19 @@ class AuthorDtoRepositoryTest {
     @Autowired
     private AuthorDtoRepository authorDtoRepository;
 
+    private void checkSelect(AuthorDto expectedAuthorDto) {
+
+        Assertions.assertEquals(
+                expectedAuthorDto,
+                authorDtoRepository.select(expectedAuthorDto.getId())
+        );
+
+        Assertions.assertEquals(
+                expectedAuthorDto,
+                authorDtoRepository.select(expectedAuthorDto.getName())
+        );
+
+    }
     @Test
     void testAll() {
         String name = "test";
@@ -22,19 +35,13 @@ class AuthorDtoRepositoryTest {
 
         AuthorDto expectedbAuthorDto = new AuthorDto(id, name);
 
-        Assertions.assertEquals(
-                expectedbAuthorDto,
-                authorDtoRepository.select(expectedbAuthorDto.getId())
-        );
+        checkSelect(expectedbAuthorDto);
 
         expectedbAuthorDto = new AuthorDto(expectedbAuthorDto.getId(), "test2");
 
         authorDtoRepository.update(expectedbAuthorDto.getId(), expectedbAuthorDto.getName());
 
-        Assertions.assertEquals(
-                expectedbAuthorDto,
-                authorDtoRepository.select(expectedbAuthorDto.getId())
-        );
+        checkSelect(expectedbAuthorDto);
 
         authorDtoRepository.delete(expectedbAuthorDto.getId());
 

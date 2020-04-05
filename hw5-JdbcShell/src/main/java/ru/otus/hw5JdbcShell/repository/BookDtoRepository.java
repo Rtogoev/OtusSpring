@@ -1,5 +1,6 @@
 package ru.otus.hw5JdbcShell.repository;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
@@ -20,7 +21,7 @@ public class BookDtoRepository {
             resultSet.getLong("id"),
             resultSet.getString("name"),
             toLongList(resultSet.getArray("AUTHORS_ID").getArray()),
-            toLongList(resultSet.getArray("AUTHORS_ID").getArray())
+            toLongList(resultSet.getArray("GENRES_ID").getArray())
     );
     private final NamedParameterJdbcOperations namedParameterJdbcOperations;
 
@@ -48,13 +49,23 @@ public class BookDtoRepository {
 
     public BookDto select(long id) {
         Map<String, Object> params = Collections.singletonMap("id", id);
-        return namedParameterJdbcOperations.queryForObject(
-                "select * from BOOKS where id = :id", params, BOOK_DTO_ROW_MAPPER
-        );
+        try {
+            return namedParameterJdbcOperations.queryForObject(
+                    "select * from BOOKS where id = :id", params, BOOK_DTO_ROW_MAPPER
+            );
+        } catch (EmptyResultDataAccessException e) {
+            // do nothing
+        }
+        return null;
     }
 
     public List<BookDto> selectAll() {
-        return namedParameterJdbcOperations.query("select * from BOOKS", BOOK_DTO_ROW_MAPPER);
+        try {
+            return namedParameterJdbcOperations.query("select * from BOOKS", BOOK_DTO_ROW_MAPPER);
+        } catch (EmptyResultDataAccessException e) {
+            // do nothing
+        }
+        return Collections.emptyList();
     }
 
     public void update(long id, String name, List<Long> authorIds, List<Long> genreIds) {

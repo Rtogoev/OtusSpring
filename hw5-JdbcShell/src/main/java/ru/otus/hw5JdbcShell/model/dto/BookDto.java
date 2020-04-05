@@ -47,4 +47,14 @@ public class BookDto {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "BookDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", authorIds=" + authorIds +
+                ", genreIds=" + genreIds +
+                '}';
+    }
 }
