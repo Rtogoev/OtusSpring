@@ -1,15 +1,24 @@
 package ru.otus.hw5JdbcShell.utils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Utils {
-    public static List<Long> toLongList(Object longArrayObject) {
+    public static Set<Long> toLongSet(Object longArrayObject) {
         Object[] longObjectArray = (Object[]) longArrayObject;
-        List<Long> longList = new ArrayList<>();
+        Set<Long> longSet = new HashSet<>();
         for (Object longObject : longObjectArray) {
-            longList.add((Long) longObject);
+            longSet.add((Long) longObject);
         }
-        return longList;
+        return longSet;
+    }
+
+    public static Set<String> convert(String commaSeparatedString) {
+        return new HashSet<>(
+                Arrays.asList(
+                        commaSeparatedString.split(",")
+                )
+        );
     }
 }

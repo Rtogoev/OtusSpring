@@ -6,12 +6,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
 import ru.otus.hw5JdbcShell.model.dto.BookDto;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import static ru.otus.hw5JdbcShell.utils.Utils.toLongList;
+import static ru.otus.hw5JdbcShell.utils.Utils.toLongSet;
 
 
 @Repository
@@ -20,8 +17,8 @@ public class BookDtoRepository {
     private static final RowMapper<BookDto> BOOK_DTO_ROW_MAPPER = (resultSet, i) -> new BookDto(
             resultSet.getLong("id"),
             resultSet.getString("name"),
-            toLongList(resultSet.getArray("AUTHORS_ID").getArray()),
-            toLongList(resultSet.getArray("GENRES_ID").getArray())
+            toLongSet(resultSet.getArray("AUTHORS_ID").getArray()),
+            toLongSet(resultSet.getArray("GENRES_ID").getArray())
     );
     private final NamedParameterJdbcOperations namedParameterJdbcOperations;
 
@@ -33,7 +30,7 @@ public class BookDtoRepository {
         return (long) (Math.random() * 10000000000L);
     }
 
-    public Long insert(String name, List<Long> authorIds, List<Long> genreIds) {
+    public Long insert(String name, Set<Long> authorIds, Set<Long> genreIds) {
         long id = generateLong();
         Map<String, Object> params = new java.util.HashMap<>();
         params.put("id", id);
@@ -59,16 +56,16 @@ public class BookDtoRepository {
         return null;
     }
 
-    public List<BookDto> selectAll() {
+    public Set<BookDto> selectAll() {
         try {
-            return namedParameterJdbcOperations.query("select * from BOOKS", BOOK_DTO_ROW_MAPPER);
+            return new HashSet<>(namedParameterJdbcOperations.query("select * from BOOKS", BOOK_DTO_ROW_MAPPER));
         } catch (EmptyResultDataAccessException e) {
             // do nothing
         }
-        return Collections.emptyList();
+        return Collections.emptySet();
     }
 
-    public void update(long id, String name, List<Long> authorIds, List<Long> genreIds) {
+    public void update(long id, String name, Set<Long> authorIds, Set<Long> genreIds) {
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
         params.put("name", name);

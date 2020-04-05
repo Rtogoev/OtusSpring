@@ -1,15 +1,15 @@
 package ru.otus.hw5JdbcShell.model.dto;
 
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class BookDto {
     private final Long id;
     private final String name;
-    private final List<Long> authorIds;
-    private final List<Long> genreIds;
+    private final Set<Long> authorIds;
+    private final Set<Long> genreIds;
 
-    public BookDto(Long id, String name, List<Long> authorIds, List<Long> genreIds) {
+    public BookDto(Long id, String name, Set<Long> authorIds, Set<Long> genreIds) {
         this.id = id;
         this.name = name;
         this.authorIds = authorIds;
@@ -32,11 +32,11 @@ public class BookDto {
         return Objects.hash(id, name, authorIds, genreIds);
     }
 
-    public List<Long> getAuthorIds() {
+    public Set<Long> getAuthorIds() {
         return authorIds;
     }
 
-    public List<Long> getGenreIds() {
+    public Set<Long> getGenreIds() {
         return genreIds;
     }
 

@@ -9,9 +9,9 @@ import ru.otus.hw5JdbcShell.repository.AuthorDtoRepository;
 import ru.otus.hw5JdbcShell.repository.BookDtoRepository;
 import ru.otus.hw5JdbcShell.repository.GenreDtoRepository;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,11 +37,11 @@ class BookServiceTest {
     @Test
     void testAll() {
         String name = "name";
-        List<String> authors = new ArrayList<>();
+        Set<String> authors = new HashSet<>();
         authors.add("author1");
         authors.add("author2");
 
-        List<String> genres = new ArrayList<>();
+        Set<String> genres = new HashSet<>();
         genres.add("genre1");
         genres.add("genre2");
         Book expectedBook = new Book(
@@ -79,27 +79,35 @@ class BookServiceTest {
         Book book1 = new Book(
                 bookService.add(
                         "name1",
-                        Collections.singletonList("author1"),
-                        Collections.singletonList("genre1")
+                        Collections.singleton("author1"),
+                        Collections.singleton("genre1")
                 ),
                 "name1",
-                Collections.singletonList(authorService.get("author1")),
-                Collections.singletonList(genreService.get("genre1"))
+                Collections.singleton(authorService.get("author1")),
+                Collections.singleton(genreService.get("genre1"))
         );
         Book book2 = new Book(
-                bookService.add("name2", Collections.singletonList("author2"), Collections.singletonList("genre2")),
+                bookService.add(
+                        "name2",
+                        Collections.singleton("author2"),
+                        Collections.singleton("genre2")
+                ),
                 "name2",
-                Collections.singletonList(authorService.get("author2")),
-                Collections.singletonList(genreService.get("genre2"))
+                Collections.singleton(authorService.get("author2")),
+                Collections.singleton(genreService.get("genre2"))
         );
 
         Book book3 = new Book(
-                bookService.add("name3", Collections.singletonList("author3"), Collections.singletonList("genre3")),
+                bookService.add(
+                        "name3",
+                        Collections.singleton("author3"),
+                        Collections.singleton("genre3")
+                ),
                 "name3",
-                Collections.singletonList(authorService.get("author3")),
-                Collections.singletonList(genreService.get("genre3"))
+                Collections.singleton(authorService.get("author3")),
+                Collections.singleton(genreService.get("genre3"))
         );
-        List<Book> books = bookService.getAll();
+        Set<Book> books = bookService.getAll();
 
         assertFalse(books.contains(expectedBook));
         assertTrue(books.contains(book1));

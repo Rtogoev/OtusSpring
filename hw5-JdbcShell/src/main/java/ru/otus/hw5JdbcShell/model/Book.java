@@ -3,16 +3,16 @@ package ru.otus.hw5JdbcShell.model;
 import ru.otus.hw5JdbcShell.model.dto.AuthorDto;
 import ru.otus.hw5JdbcShell.model.dto.GenreDto;
 
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class Book {
     private final Long id;
     private final String name;
-    private final List<AuthorDto> authors;
-    private final List<GenreDto> genres;
+    private final Set<AuthorDto> authors;
+    private final Set<GenreDto> genres;
 
-    public Book(Long id, String name, List<AuthorDto> authors, List<GenreDto> genres) {
+    public Book(Long id, String name, Set<AuthorDto> authors, Set<GenreDto> genres) {
         this.id = id;
         this.name = name;
         this.authors = authors;
@@ -43,11 +43,11 @@ public class Book {
         return name;
     }
 
-    public List<AuthorDto> getAuthors() {
+    public Set<AuthorDto> getAuthors() {
         return authors;
     }
 
-    public List<GenreDto> getGenres() {
+    public Set<GenreDto> getGenres() {
         return genres;
     }
 

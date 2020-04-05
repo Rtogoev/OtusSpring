@@ -7,9 +7,9 @@ import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
 import ru.otus.hw5JdbcShell.model.dto.BookDto;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @JdbcTest
 @Import(BookDtoRepository.class)
@@ -21,13 +21,13 @@ class BookDtoRepositoryTest {
     void testAll() {
         String name = "test";
 
-        List<Long> authorIds = new ArrayList<>();
+        Set<Long> authorIds = new HashSet<>();
         authorIds.add(1L);
         authorIds.add(2L);
         authorIds.add(3L);
 
 
-        List<Long> genreIds = new ArrayList<>();
+        Set<Long> genreIds = new HashSet<>();
         genreIds.add(1L);
         genreIds.add(2L);
         genreIds.add(3L);
@@ -60,15 +60,15 @@ class BookDtoRepositoryTest {
 
         bookDtoRepository.delete(expectedbBookDto.getId());
 
-        Long id3 = bookDtoRepository.insert("test3", Collections.singletonList(3L), Collections.singletonList(3L));
-        Long id4 = bookDtoRepository.insert("test4", Collections.singletonList(4L), Collections.singletonList(4L));
-        Long id5 = bookDtoRepository.insert("test5", Collections.singletonList(5L), Collections.singletonList(5L));
+        Long id3 = bookDtoRepository.insert("test3", Collections.singleton(3L), Collections.singleton(3L));
+        Long id4 = bookDtoRepository.insert("test4", Collections.singleton(4L), Collections.singleton(4L));
+        Long id5 = bookDtoRepository.insert("test5", Collections.singleton(5L), Collections.singleton(5L));
 
-        BookDto expected3 = new BookDto(id3, "test3", Collections.singletonList(3L), Collections.singletonList(3L));
-        BookDto expected4 = new BookDto(id4, "test4", Collections.singletonList(4L), Collections.singletonList(4L));
-        BookDto expected5 = new BookDto(id5, "test5", Collections.singletonList(5L), Collections.singletonList(5L));
+        BookDto expected3 = new BookDto(id3, "test3", Collections.singleton(3L), Collections.singleton(3L));
+        BookDto expected4 = new BookDto(id4, "test4", Collections.singleton(4L), Collections.singleton(4L));
+        BookDto expected5 = new BookDto(id5, "test5", Collections.singleton(5L), Collections.singleton(5L));
 
-        List<BookDto> bookDtos = bookDtoRepository.selectAll();
+        Set<BookDto> bookDtos = bookDtoRepository.selectAll();
 
         Assertions.assertFalse(bookDtos.contains(expectedbBookDto));
 

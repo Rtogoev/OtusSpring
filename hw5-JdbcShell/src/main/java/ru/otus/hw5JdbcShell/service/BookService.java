@@ -5,8 +5,8 @@ import ru.otus.hw5JdbcShell.model.Book;
 import ru.otus.hw5JdbcShell.model.dto.BookDto;
 import ru.otus.hw5JdbcShell.repository.BookDtoRepository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class BookService {
@@ -20,7 +20,7 @@ public class BookService {
         this.authorService = authorService;
     }
 
-    public Long add(String name, List<String> authors, List<String> genres) {
+    public Long add(String name, Set<String> authors, Set<String> genres) {
         return bookDtoRepository.insert(
                 name,
                 authorService.add(authors),
@@ -39,7 +39,7 @@ public class BookService {
         );
     }
 
-    public void update(Long id, String name, List<String> authors, List<String> genres) {
+    public void update(Long id, String name, Set<String> authors, Set<String> genres) {
         bookDtoRepository.update(
                 id,
                 name,
@@ -52,9 +52,9 @@ public class BookService {
         bookDtoRepository.delete(id);
     }
 
-    public List<Book> getAll() {
-        List<Book> books = new ArrayList<>();
-        List<BookDto> bookDtos = bookDtoRepository.selectAll();
+    public Set<Book> getAll() {
+        Set<Book> books = new HashSet<>();
+        Set<BookDto> bookDtos = bookDtoRepository.selectAll();
         for (BookDto bookDto : bookDtos) {
             books.add(
                     new Book(

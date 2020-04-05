@@ -4,8 +4,8 @@ import org.springframework.stereotype.Service;
 import ru.otus.hw5JdbcShell.model.dto.GenreDto;
 import ru.otus.hw5JdbcShell.repository.GenreDtoRepository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class GenreService {
@@ -25,8 +25,8 @@ public class GenreService {
         return select.getId();
     }
 
-    public List<Long> add(List<String> genres) {
-        List<Long> genreIds = new ArrayList<>();
+    public Set<Long> add(Set<String> genres) {
+        Set<Long> genreIds = new HashSet<>();
         for (String genre : genres) {
             Long genreId = add(genre);
             genreIds.add(genreId);
@@ -42,16 +42,16 @@ public class GenreService {
         return genreDtoRepository.select(id);
     }
 
-    public List<GenreDto> getByNames(List<String> genres) {
-        List<GenreDto> genreDtos = new ArrayList<>();
+    public Set<GenreDto> getByNames(Set<String> genres) {
+        Set<GenreDto> genreDtos = new HashSet<>();
         for (String genre : genres) {
             genreDtos.add(get(genre));
         }
         return genreDtos;
     }
 
-    public List<GenreDto> getByIds(List<Long> genreIds) {
-        List<GenreDto> genreDtos = new ArrayList<>();
+    public Set<GenreDto> getByIds(Set<Long> genreIds) {
+        Set<GenreDto> genreDtos = new HashSet<>();
         for (Long genreId : genreIds) {
             genreDtos.add(get(genreId));
         }

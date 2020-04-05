@@ -4,8 +4,8 @@ import org.springframework.stereotype.Service;
 import ru.otus.hw5JdbcShell.model.dto.AuthorDto;
 import ru.otus.hw5JdbcShell.repository.AuthorDtoRepository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class AuthorService {
@@ -23,8 +23,8 @@ public class AuthorService {
         return select.getId();
     }
 
-    public List<Long> add(List<String> authors) {
-        List<Long> authorsIds = new ArrayList<>();
+    public Set<Long> add(Set<String> authors) {
+        Set<Long> authorsIds = new HashSet<>();
         for (String author : authors) {
             Long authorId = add(author);
             authorsIds.add(authorId);
@@ -41,8 +41,8 @@ public class AuthorService {
         return authorDtoRepository.select(id);
     }
 
-    public List<AuthorDto> getByNames(List<String> authors) {
-        List<AuthorDto> authorDtos = new ArrayList<>();
+    public Set<AuthorDto> getByNames(Set<String> authors) {
+        Set<AuthorDto> authorDtos = new HashSet<>();
         for (String author : authors) {
             authorDtos.add(get(author));
         }
@@ -50,8 +50,8 @@ public class AuthorService {
     }
 
 
-    public List<AuthorDto> getByIds(List<Long> authors) {
-        List<AuthorDto> authorDtos = new ArrayList<>();
+    public Set<AuthorDto> getByIds(Set<Long> authors) {
+        Set<AuthorDto> authorDtos = new HashSet<>();
         for (Long authorId : authors) {
             authorDtos.add(get(authorId));
         }
