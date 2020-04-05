@@ -3,7 +3,7 @@ package ru.otus.hw5JdbcShell.repository;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
-import ru.otus.hw5JdbcShell.model.AuthorDto;
+import ru.otus.hw5JdbcShell.model.dto.AuthorDto;
 
 import java.util.Collections;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package ru.otus.hw5JdbcShell.model;
+package ru.otus.hw5JdbcShell.model.dto;
 
 import java.util.Objects;
 

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
-import ru.otus.hw5JdbcShell.model.GenreDto;
+import ru.otus.hw5JdbcShell.model.dto.GenreDto;
 
 import java.util.List;
 

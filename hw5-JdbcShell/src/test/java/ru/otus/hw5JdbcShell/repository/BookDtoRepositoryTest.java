@@ -5,8 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
-import ru.otus.hw5JdbcShell.model.BookDto;
+import ru.otus.hw5JdbcShell.model.dto.BookDto;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @JdbcTest
@@ -18,18 +20,38 @@ class BookDtoRepositoryTest {
     @Test
     void testAll() {
         String name = "test";
-        Long id = bookDtoRepository.insert(name);
 
-        BookDto expectedbBookDto = new BookDto(id, name);
+        List<Long> authorIds = new ArrayList<>();
+        authorIds.add(1L);
+        authorIds.add(2L);
+        authorIds.add(3L);
+
+
+        List<Long> genreIds = new ArrayList<>();
+        genreIds.add(1L);
+        genreIds.add(2L);
+        genreIds.add(3L);
+
+        Long id = bookDtoRepository.insert(name, authorIds, genreIds);
+
+        BookDto expectedbBookDto = new BookDto(id, name, authorIds, genreIds);
 
         Assertions.assertEquals(
                 expectedbBookDto,
                 bookDtoRepository.select(expectedbBookDto.getId())
         );
 
-        expectedbBookDto = new BookDto(expectedbBookDto.getId(), "test2");
+        authorIds.remove(0);
+        genreIds.remove(0);
 
-        bookDtoRepository.update(expectedbBookDto.getId(), expectedbBookDto.getName());
+        expectedbBookDto = new BookDto(expectedbBookDto.getId(), "test2", authorIds, genreIds);
+
+        bookDtoRepository.update(
+                expectedbBookDto.getId(),
+                expectedbBookDto.getName(),
+                expectedbBookDto.getAuthorIds(),
+                expectedbBookDto.getGenreIds()
+        );
 
         Assertions.assertEquals(
                 expectedbBookDto,
@@ -38,13 +60,13 @@ class BookDtoRepositoryTest {
 
         bookDtoRepository.delete(expectedbBookDto.getId());
 
-        Long id3 = bookDtoRepository.insert("test3");
-        Long id4 = bookDtoRepository.insert("test4");
-        Long id5 = bookDtoRepository.insert("test5");
+        Long id3 = bookDtoRepository.insert("test3", Collections.singletonList(3L), Collections.singletonList(3L));
+        Long id4 = bookDtoRepository.insert("test4", Collections.singletonList(4L), Collections.singletonList(4L));
+        Long id5 = bookDtoRepository.insert("test5", Collections.singletonList(5L), Collections.singletonList(5L));
 
-        BookDto expected3 = new BookDto(id3, "test3");
-        BookDto expected4 = new BookDto(id4, "test4");
-        BookDto expected5 = new BookDto(id5, "test5");
+        BookDto expected3 = new BookDto(id3, "test3", Collections.singletonList(3L), Collections.singletonList(3L));
+        BookDto expected4 = new BookDto(id4, "test4", Collections.singletonList(4L), Collections.singletonList(4L));
+        BookDto expected5 = new BookDto(id5, "test5", Collections.singletonList(5L), Collections.singletonList(5L));
 
         List<BookDto> bookDtos = bookDtoRepository.selectAll();
 
