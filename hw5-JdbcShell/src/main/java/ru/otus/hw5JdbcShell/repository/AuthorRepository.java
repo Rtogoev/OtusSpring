@@ -4,28 +4,24 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
-import ru.otus.hw5JdbcShell.model.dto.AuthorDto;
+import ru.otus.hw5JdbcShell.model.dto.Author;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static java.util.Collections.singletonMap;
+import static ru.otus.hw5JdbcShell.utils.Utils.generateLong;
 
 @Repository
-public class AuthorDtoRepository {
+public class AuthorRepository {
 
-    private static final RowMapper<AuthorDto> AUTHOR_DTO_ROW_MAPPER = (resultSet, i) -> new AuthorDto(
+    private static final RowMapper<Author> AUTHOR_DTO_ROW_MAPPER = (resultSet, i) -> new Author(
             resultSet.getLong("id"),
             resultSet.getString("name")
     );
     private final NamedParameterJdbcOperations namedParameterJdbcOperations;
 
-    public AuthorDtoRepository(NamedParameterJdbcOperations namedParameterJdbcOperations) {
+    public AuthorRepository(NamedParameterJdbcOperations namedParameterJdbcOperations) {
         this.namedParameterJdbcOperations = namedParameterJdbcOperations;
-    }
-
-    public static long generateLong() {
-        return (long) (Math.random() * 10000000000L);
     }
 
     public Long insert(String name) {
@@ -37,37 +33,26 @@ public class AuthorDtoRepository {
         return id;
     }
 
-    public AuthorDto select(long id) {
-        Map<String, Object> params = Collections.singletonMap("id", id);
+    public Author select(long id) {
+        Map<String, Object> params = singletonMap("id", id);
         try {
             return namedParameterJdbcOperations.queryForObject(
                     "select * from AUTHORS where id = :id", params, AUTHOR_DTO_ROW_MAPPER
             );
         } catch (EmptyResultDataAccessException e) {
-            // do nothing
+            return null;
         }
-        return null;
     }
 
-    public AuthorDto select(String name) {
-        Map<String, Object> params = Collections.singletonMap("name", name);
+    public Author select(String name) {
+        Map<String, Object> params = singletonMap("name", name);
         try {
             return namedParameterJdbcOperations.queryForObject(
                     "select * from AUTHORS where name = :name", params, AUTHOR_DTO_ROW_MAPPER
             );
         } catch (EmptyResultDataAccessException e) {
-            // do nothing
+            return null;
         }
-        return null;
-    }
-
-    public List<AuthorDto> selectAll() {
-        try {
-            return namedParameterJdbcOperations.query("select * from AUTHORS", AUTHOR_DTO_ROW_MAPPER);
-        } catch (EmptyResultDataAccessException e) {
-            // do nothing
-        }
-        return Collections.emptyList();
     }
 
     public void update(long id, String name) {
@@ -81,10 +66,20 @@ public class AuthorDtoRepository {
     }
 
     public void delete(long id) {
-        Map<String, Object> params = Collections.singletonMap("id", id);
+        Map<String, Object> params = singletonMap("id", id);
         namedParameterJdbcOperations.update(
                 "delete from AUTHORS where id = :id",
                 params
         );
+    }
+
+    public List<Author> select(Set<Long> authorIds) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("ids", authorIds);
+        try {
+            return namedParameterJdbcOperations.query("select * from AUTHORS where ID IN (:ids)", params, AUTHOR_DTO_ROW_MAPPER);
+        } catch (EmptyResultDataAccessException e) {
+            return Collections.emptyList();
+        }
     }
 }

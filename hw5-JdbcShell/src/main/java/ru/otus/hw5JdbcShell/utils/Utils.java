@@ -3,6 +3,7 @@ package ru.otus.hw5JdbcShell.utils;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 public class Utils {
     public static Set<Long> toLongSet(Object longArrayObject) {
@@ -14,7 +15,11 @@ public class Utils {
         return longSet;
     }
 
-    public static Set<String> convert(String commaSeparatedString) {
+    public static long generateLong(){
+        return 1 - UUID.randomUUID().getLeastSignificantBits();
+    }
+
+    public static Set<String> split(String commaSeparatedString) {
         return new HashSet<>(
                 Arrays.asList(
                         commaSeparatedString.split(",")

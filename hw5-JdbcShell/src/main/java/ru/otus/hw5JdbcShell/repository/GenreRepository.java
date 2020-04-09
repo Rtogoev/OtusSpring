@@ -1,31 +1,29 @@
 package ru.otus.hw5JdbcShell.repository;
 
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
-import ru.otus.hw5JdbcShell.model.dto.GenreDto;
+import ru.otus.hw5JdbcShell.model.dto.Genre;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static java.util.Collections.singletonMap;
+import static ru.otus.hw5JdbcShell.utils.Utils.generateLong;
 
 @Repository
-public class GenreDtoRepository {
+public class GenreRepository {
 
-    private static final RowMapper<GenreDto> GENRE_DTO_ROW_MAPPER = (resultSet, i) -> new GenreDto(
+    private static final RowMapper<Genre> GENRE_DTO_ROW_MAPPER = (resultSet, i) -> new Genre(
             resultSet.getLong("id"),
             resultSet.getString("name")
     );
     private final NamedParameterJdbcOperations namedParameterJdbcOperations;
-
-    public GenreDtoRepository(NamedParameterJdbcOperations namedParameterJdbcOperations) {
+private final JdbcTemplate jdbcTemplate;
+    public GenreRepository(NamedParameterJdbcOperations namedParameterJdbcOperations, JdbcTemplate jdbcTemplate) {
         this.namedParameterJdbcOperations = namedParameterJdbcOperations;
-    }
-
-    public static long generateLong() {
-        return (long) (Math.random() * 10000000000L);
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     public Long insert(String name) {
@@ -37,38 +35,34 @@ public class GenreDtoRepository {
         return id;
     }
 
-    public GenreDto select(long id) {
-        Map<String, Object> params = Collections.singletonMap("id", id);
+    public Genre select(long id) {
+        Map<String, Object> params = singletonMap("id", id);
         try {
             return namedParameterJdbcOperations.queryForObject(
                     "select * from GENRES where id = :id", params, GENRE_DTO_ROW_MAPPER
             );
         } catch (EmptyResultDataAccessException e) {
-            // do nothing
+            return null;
         }
-        return null;
     }
 
-
-    public GenreDto select(String name) {
-        Map<String, Object> params = Collections.singletonMap("name", name);
+    public Genre select(String name) {
+        Map<String, Object> params = singletonMap("name", name);
         try {
             return namedParameterJdbcOperations.queryForObject(
                     "select * from GENRES where name = :name", params, GENRE_DTO_ROW_MAPPER
             );
         } catch (EmptyResultDataAccessException e) {
-            // do nothing
+            return null;
         }
-        return null;
     }
 
-    public List<GenreDto> selectAll() {
+    public List<Genre> selectAll() {
         try {
             return namedParameterJdbcOperations.query("select * from GENRES", GENRE_DTO_ROW_MAPPER);
         } catch (EmptyResultDataAccessException e) {
-            // do nothing
+            return Collections.emptyList();
         }
-        return Collections.emptyList();
     }
 
     public void update(long id, String name) {
@@ -82,10 +76,20 @@ public class GenreDtoRepository {
     }
 
     public void delete(long id) {
-        Map<String, Object> params = Collections.singletonMap("id", id);
+        Map<String, Object> params = singletonMap("id", id);
         namedParameterJdbcOperations.update(
                 "delete from GENRES where id = :id",
                 params
         );
+    }
+
+        public List<Genre> select(Set<Long> genreIds) {
+            Map<String, Object> params = new HashMap<>();
+            params.put("ids", genreIds);
+            try {
+                return namedParameterJdbcOperations.query("select * from GENRES where ID IN (:ids)", params, GENRE_DTO_ROW_MAPPER);
+            } catch (EmptyResultDataAccessException e) {
+                return Collections.emptyList();
+            }
     }
 }

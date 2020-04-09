@@ -2,21 +2,13 @@ package ru.otus.hw5JdbcShell.model.dto;
 
 import java.util.Objects;
 
-public class GenreDto {
+public class Author {
     private final Long id;
     private final String name;
 
-    public GenreDto(Long id, String name) {
+    public Author(Long id, String name) {
         this.id = id;
         this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "GenreDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
     }
 
     public Long getId() {
@@ -31,13 +23,21 @@ public class GenreDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GenreDto genreDto = (GenreDto) o;
-        return Objects.equals(id, genreDto.id) &&
-                Objects.equals(name, genreDto.name);
+        Author author = (Author) o;
+        return Objects.equals(id, author.id) &&
+                Objects.equals(name, author.name);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, name);
+    }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
