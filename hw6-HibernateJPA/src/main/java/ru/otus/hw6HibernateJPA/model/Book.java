@@ -36,7 +36,8 @@ public class Book {
     public Book() {
     }
 
-    public Book(String name) {
+    public Book(Long id, String name) {
+        this.id = id;
         this.name = name;
     }
 

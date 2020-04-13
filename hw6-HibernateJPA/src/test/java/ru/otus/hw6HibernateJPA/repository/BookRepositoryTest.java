@@ -2,14 +2,14 @@ package ru.otus.hw6HibernateJPA.repository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import ru.otus.hw6HibernateJPA.model.Book;
 
-import java.util.Set;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-@JdbcTest
+@DataJpaTest
 @Import(BookRepository.class)
 class BookRepositoryTest {
     @Autowired
@@ -18,7 +18,7 @@ class BookRepositoryTest {
     @Test
     void insert() {
         String name = "test";
-        Long id = bookRepository.insert(name);
+        Long id = bookRepository.insert(new Book(null, name));
 
         Book expectedBook = new Book(id, name);
         checkSelect(expectedBook);
@@ -26,14 +26,14 @@ class BookRepositoryTest {
 
     @Test
     void update() {
-        Long id = bookRepository.insert("test");
+        Long id = bookRepository.insert(new Book(null, "test"));
         bookRepository.update(id, "test2");
         checkSelect(new Book(id, "test2"));
     }
 
     @Test
     void delete() {
-        Long id = bookRepository.insert("test");
+        Long id = bookRepository.insert(new Book(null, "test"));
 
         bookRepository.delete(id);
         assertNull(bookRepository.select(id));
@@ -41,15 +41,15 @@ class BookRepositoryTest {
 
     @Test
     void selectAll() {
-        Long id3 = bookRepository.insert("test3");
-        Long id4 = bookRepository.insert("test4");
-        Long id5 = bookRepository.insert("test5");
+        Long id3 = bookRepository.insert(new Book(null,"test3"));
+        Long id4 = bookRepository.insert(new Book(null,"test4"));
+        Long id5 = bookRepository.insert(new Book(null,"test5"));
 
         Book expected3 = new Book(id3, "test3");
         Book expected4 = new Book(id4, "test4");
         Book expected5 = new Book(id5, "test5");
 
-        Set<Book> books = bookRepository.selectAll();
+        List<Book> books = bookRepository.selectAll();
 
         assertTrue(books.contains(expected3));
         assertTrue(books.contains(expected4));

@@ -19,7 +19,7 @@ public class AuthorService {
     public Long add(String name) {
         Author select = authorRepository.select(name);
         if (select == null) {
-            return authorRepository.insert(name);
+            return authorRepository.insert(new Author(null, name));
         }
         return select.getId();
     }

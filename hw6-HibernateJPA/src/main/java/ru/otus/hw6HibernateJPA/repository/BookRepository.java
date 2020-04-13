@@ -4,9 +4,7 @@ import org.springframework.stereotype.Repository;
 import ru.otus.hw6HibernateJPA.model.Book;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 
@@ -23,16 +21,7 @@ public class BookRepository {
 
 
     public Book select(Long id) {
-        TypedQuery<Book> query = em.createQuery(
-                "select e from Book e where e.id = :id",
-                Book.class
-        )
-                .setParameter("id", id);
-        try {
-            return query.getSingleResult();
-        } catch (NoResultException e) {
-            return null;
-        }
+        return em.find(Book.class, id);
     }
 
 

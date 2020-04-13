@@ -17,7 +17,7 @@ public class BookService {
 
 
     public Long add(String name) {
-       return bookRepository.insert(new Book(name));
+       return bookRepository.insert(new Book(null, name));
     }
 
     public Book get(Long id) {

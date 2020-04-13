@@ -2,13 +2,14 @@ package ru.otus.hw6HibernateJPA.repository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import ru.otus.hw6HibernateJPA.model.Author;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-@JdbcTest
+
+@DataJpaTest
 @Import(AuthorRepository.class)
 class AuthorRepositoryTest {
     @Autowired
@@ -16,8 +17,8 @@ class AuthorRepositoryTest {
 
     @Test
     void insert() {
-        String name = "test";
-        Long id = authorRepository.insert(name);
+        String name = "insert";
+        Long id = authorRepository.insert(new Author(null, name));
 
         Author expectedAuthor = new Author(id, name);
         checkSelect(expectedAuthor);
@@ -25,14 +26,14 @@ class AuthorRepositoryTest {
 
     @Test
     void update() {
-        Long id = authorRepository.insert("test");
-        authorRepository.update(id, "test2");
-        checkSelect(new Author(id, "test2"));
+        Long id = authorRepository.insert(new Author(null, "update"));
+        authorRepository.update(id, "update2");
+        checkSelect(new Author(id, "update2"));
     }
 
     @Test
     void delete() {
-        Long id = authorRepository.insert("test");
+        Long id = authorRepository.insert(new Author(null, "delete"));
 
         authorRepository.delete(id);
         assertNull(authorRepository.select(id));
@@ -40,7 +41,6 @@ class AuthorRepositoryTest {
     }
 
     private void checkSelect(Author expectedAuthor) {
-
         assertEquals(
                 expectedAuthor,
                 authorRepository.select(expectedAuthor.getId())

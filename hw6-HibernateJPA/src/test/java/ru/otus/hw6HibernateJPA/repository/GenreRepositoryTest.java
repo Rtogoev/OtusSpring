@@ -2,14 +2,14 @@ package ru.otus.hw6HibernateJPA.repository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import ru.otus.hw6HibernateJPA.model.Genre;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-@JdbcTest
+@DataJpaTest
 @Import(GenreRepository.class)
 class GenreRepositoryTest {
     @Autowired
