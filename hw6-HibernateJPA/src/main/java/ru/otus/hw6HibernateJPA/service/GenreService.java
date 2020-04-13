@@ -1,8 +1,8 @@
-package ru.otus.hw5JdbcShell.service;
+package ru.otus.hw6HibernateJPA.service;
 
 import org.springframework.stereotype.Service;
-import ru.otus.hw5JdbcShell.model.dto.Genre;
-import ru.otus.hw5JdbcShell.repository.GenreRepository;
+import ru.otus.hw6HibernateJPA.model.Genre;
+import ru.otus.hw6HibernateJPA.repository.GenreRepository;
 
 import java.util.HashSet;
 import java.util.List;

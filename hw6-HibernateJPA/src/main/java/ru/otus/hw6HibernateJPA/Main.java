@@ -1,4 +1,4 @@
-package ru.otus.hw5JdbcShell;
+package ru.otus.hw6HibernateJPA;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

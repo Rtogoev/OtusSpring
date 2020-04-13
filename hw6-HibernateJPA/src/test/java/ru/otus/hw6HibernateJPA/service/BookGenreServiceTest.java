@@ -1,18 +1,15 @@
-package ru.otus.hw5JdbcShell.service;
+package ru.otus.hw6HibernateJPA.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
-import ru.otus.hw5JdbcShell.repository.BookGenreRepository;
-import ru.otus.hw5JdbcShell.repository.BookRepository;
-import ru.otus.hw5JdbcShell.repository.GenreRepository;
+import ru.otus.hw6HibernateJPA.repository.BookRepository;
+import ru.otus.hw6HibernateJPA.repository.GenreRepository;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @JdbcTest

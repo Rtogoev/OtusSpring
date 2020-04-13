@@ -1,10 +1,8 @@
-package ru.otus.hw5JdbcShell.shell;
+package ru.otus.hw6HibernateJPA.shell;
 
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
-import ru.otus.hw5JdbcShell.model.view.LibraryRecord;
-import ru.otus.hw5JdbcShell.service.LibraryService;
-import ru.otus.hw5JdbcShell.utils.Utils;
+import ru.otus.hw6HibernateJPA.utils.Utils;
 
 import java.util.List;
 import java.util.Set;

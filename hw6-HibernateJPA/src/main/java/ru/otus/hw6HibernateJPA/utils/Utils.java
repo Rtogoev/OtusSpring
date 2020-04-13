@@ -1,4 +1,4 @@
-package ru.otus.hw5JdbcShell.utils;
+package ru.otus.hw6HibernateJPA.utils;
 
 import java.util.Arrays;
 import java.util.HashSet;

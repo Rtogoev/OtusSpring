@@ -1,10 +1,10 @@
-package ru.otus.hw5JdbcShell.repository;
+package ru.otus.hw6HibernateJPA.repository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
-import ru.otus.hw5JdbcShell.model.dto.Book;
+import ru.otus.hw6HibernateJPA.model.Book;
 
 import java.util.Set;
 

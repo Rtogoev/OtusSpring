@@ -1,10 +1,10 @@
-package ru.otus.hw5JdbcShell.service;
+package ru.otus.hw6HibernateJPA.service;
 
 import org.springframework.stereotype.Service;
-import ru.otus.hw5JdbcShell.model.dto.Book;
-import ru.otus.hw5JdbcShell.repository.BookRepository;
+import ru.otus.hw6HibernateJPA.model.Book;
+import ru.otus.hw6HibernateJPA.repository.BookRepository;
 
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class BookService {
@@ -17,7 +17,7 @@ public class BookService {
 
 
     public Long add(String name) {
-       return bookRepository.insert(name);
+       return bookRepository.insert(new Book(name));
     }
 
     public Book get(Long id) {
@@ -32,7 +32,7 @@ public class BookService {
         bookRepository.delete(id);
     }
 
-    public Set<Book> getAll() {
+    public List<Book> getAll() {
         return bookRepository.selectAll();
     }
 }

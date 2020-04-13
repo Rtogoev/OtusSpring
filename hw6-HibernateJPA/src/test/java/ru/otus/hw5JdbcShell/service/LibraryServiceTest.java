@@ -6,7 +6,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
 import ru.otus.hw5JdbcShell.model.dto.Author;
 import ru.otus.hw5JdbcShell.model.dto.Genre;
-import ru.otus.hw5JdbcShell.model.view.LibraryRecord;
 import ru.otus.hw5JdbcShell.repository.*;
 
 import java.util.*;

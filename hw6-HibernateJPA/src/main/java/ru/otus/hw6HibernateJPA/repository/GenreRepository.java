@@ -1,16 +1,16 @@
-package ru.otus.hw5JdbcShell.repository;
+package ru.otus.hw6HibernateJPA.repository;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
-import ru.otus.hw5JdbcShell.model.dto.Genre;
+import ru.otus.hw6HibernateJPA.model.Genre;
 
 import java.util.*;
 
 import static java.util.Collections.singletonMap;
-import static ru.otus.hw5JdbcShell.utils.Utils.generateLong;
+import static ru.otus.hw6HibernateJPA.utils.Utils.generateLong;
 
 @Repository
 public class GenreRepository {

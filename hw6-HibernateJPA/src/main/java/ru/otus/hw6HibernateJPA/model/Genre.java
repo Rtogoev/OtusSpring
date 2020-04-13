@@ -1,14 +1,25 @@
-package ru.otus.hw5JdbcShell.model.dto;
+package ru.otus.hw6HibernateJPA.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "books")
 public class Genre {
-    private final Long id;
-    private final String name;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "name")
+    private String name;
 
     public Genre(Long id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Genre() {
     }
 
     @Override

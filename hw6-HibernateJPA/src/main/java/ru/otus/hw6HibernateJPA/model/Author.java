@@ -1,10 +1,22 @@
-package ru.otus.hw5JdbcShell.model.dto;
+package ru.otus.hw6HibernateJPA.model;
 
+
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "authors")
 public class Author {
-    private final Long id;
-    private final String name;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "name")
+    private String name;
+
+    public Author() {
+    }
 
     public Author(Long id, String name) {
         this.id = id;
