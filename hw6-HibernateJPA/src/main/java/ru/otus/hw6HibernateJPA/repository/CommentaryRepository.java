@@ -1,6 +1,7 @@
 package ru.otus.hw6HibernateJPA.repository;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.otus.hw6HibernateJPA.model.Commentary;
 
 import javax.persistence.EntityManager;
@@ -9,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Set;
 
+@Transactional
 @Repository
 public class CommentaryRepository {
 

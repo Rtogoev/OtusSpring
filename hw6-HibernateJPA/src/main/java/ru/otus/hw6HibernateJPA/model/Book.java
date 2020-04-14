@@ -1,5 +1,8 @@
 package ru.otus.hw6HibernateJPA.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
@@ -7,18 +10,18 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "books")
-@NamedEntityGraph(
-        name = "author-graph",
-        attributeNodes = {@NamedAttributeNode("authors")}
-)
-@NamedEntityGraph(
-        name = "genre-graph",
-        attributeNodes = {@NamedAttributeNode("genres")}
-)
-@NamedEntityGraph(
-        name = "commentary-graph",
-        attributeNodes = {@NamedAttributeNode("commentaries")}
-)
+//@NamedEntityGraph(
+//        name = "author-graph",
+//        attributeNodes = {@NamedAttributeNode("authors")}
+//)
+//@NamedEntityGraph(
+//        name = "genre-graph",
+//        attributeNodes = {@NamedAttributeNode("genres")}
+//)
+//@NamedEntityGraph(
+//        name = "commentary-graph",
+//        attributeNodes = {@NamedAttributeNode("commentaries")}
+//)
 public class Book {
 
     @Column(name = "name")
@@ -28,18 +31,21 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Fetch(FetchMode.SUBSELECT)
     @ManyToMany
     @JoinTable(name = "book_author",
             joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"))
     private List<Author> authors;
 
+    @Fetch(FetchMode.SUBSELECT)
     @ManyToMany
     @JoinTable(name = "book_genre",
             joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
     private List<Genre> genres;
 
+    @Fetch(FetchMode.SUBSELECT)
     @ManyToMany
     @JoinTable(name = "book_commentary",
             joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),

@@ -1,14 +1,14 @@
 package ru.otus.hw6HibernateJPA.repository;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.otus.hw6HibernateJPA.model.Book;
 
-import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-
+@Transactional
 @Repository
 public class BookRepository {
 
@@ -39,14 +39,14 @@ public class BookRepository {
     }
 
     public List<Book> selectAll() {
-        EntityGraph<?> authorGraph = em.getEntityGraph("author-graph");
-        EntityGraph<?> genreGraph = em.getEntityGraph("genre-graph");
-        EntityGraph<?> commentaryGraph = em.getEntityGraph("commentary-graph");
+//        EntityGraph<?> authorGraph = em.getEntityGraph("author-graph");
+//        EntityGraph<?> genreGraph = em.getEntityGraph("genre-graph");
+//        EntityGraph<?> commentaryGraph = em.getEntityGraph("commentary-graph");
 
         return em.createQuery("select e from Book e", Book.class)
-                .setHint("javax.persistent.fetchgraph",authorGraph)
-                .setHint("javax.persistent.fetchgraph",genreGraph)
-                .setHint("javax.persistent.fetchgraph",commentaryGraph)
+//                .setHint("javax.persistent.fetchgraph",authorGraph)
+//                .setHint("javax.persistent.fetchgraph",genreGraph)
+//                .setHint("javax.persistent.fetchgraph",commentaryGraph)
                 .getResultList();
     }
 }
