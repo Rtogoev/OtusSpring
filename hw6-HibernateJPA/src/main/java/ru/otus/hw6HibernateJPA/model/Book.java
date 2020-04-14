@@ -7,6 +7,18 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "books")
+@NamedEntityGraph(
+        name = "author-graph",
+        attributeNodes = {@NamedAttributeNode("authors")}
+)
+@NamedEntityGraph(
+        name = "genre-graph",
+        attributeNodes = {@NamedAttributeNode("genres")}
+)
+@NamedEntityGraph(
+        name = "commentary-graph",
+        attributeNodes = {@NamedAttributeNode("commentaries")}
+)
 public class Book {
 
     @Column(name = "name")
