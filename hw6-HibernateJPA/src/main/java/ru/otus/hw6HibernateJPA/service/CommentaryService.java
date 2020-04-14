@@ -34,8 +34,4 @@ public class CommentaryService {
         }
         return commentaryList;
     }
-
-    public List<Commentary> getByIds(Set<Long> commentaryIds) {
-        return commentaryRepository.select(commentaryIds);
-    }
 }

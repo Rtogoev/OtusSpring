@@ -33,7 +33,6 @@ public class BookRepository {
     }
 
     public Long insert(Book Book) {
-        System.out.println("BOOK ADDED");
         em.persist(Book);
         return Book.getId();
     }

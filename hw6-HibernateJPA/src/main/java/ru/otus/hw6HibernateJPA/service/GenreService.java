@@ -34,8 +34,4 @@ public class GenreService {
         }
         return genreList;
     }
-
-    public List<Genre> getByIds(Set<Long> genreIds) {
-        return genreRepository.select(genreIds);
-    }
 }

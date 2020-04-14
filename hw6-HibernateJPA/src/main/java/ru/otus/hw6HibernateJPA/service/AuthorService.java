@@ -32,8 +32,4 @@ public class AuthorService {
         }
         return authorList;
     }
-
-    public List<Author> getByIds(Set<Long> authorIds) {
-        return authorRepository.select(authorIds);
-    }
 }
