@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.otus.hw6HibernateJPA.model.Author;
 import ru.otus.hw6HibernateJPA.repository.AuthorRepository;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -24,13 +24,13 @@ public class AuthorService {
         return select.getId();
     }
 
-    public Set<Long> add(Set<String> authors) {
-        Set<Long> authorsIds = new HashSet<>();
-        for (String author : authors) {
-            Long authorId = add(author);
-            authorsIds.add(authorId);
+    public List<Author> add(Set<String> authorNames) {
+        List<Author> authorList = new ArrayList<>();
+        for (String authorName : authorNames) {
+            Long authorId = add(authorName);
+            authorList.add(new Author(authorId, authorName));
         }
-        return authorsIds;
+        return authorList;
     }
 
     public List<Author> getByIds(Set<Long> authorIds) {

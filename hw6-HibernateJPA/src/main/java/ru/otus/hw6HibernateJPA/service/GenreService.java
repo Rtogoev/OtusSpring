@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.otus.hw6HibernateJPA.model.Genre;
 import ru.otus.hw6HibernateJPA.repository.GenreRepository;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -26,13 +26,13 @@ public class GenreService {
         return select.getId();
     }
 
-    public Set<Long> add(Set<String> genres) {
-        Set<Long> genreIds = new HashSet<>();
-        for (String genre : genres) {
-            Long genreId = add(genre);
-            genreIds.add(genreId);
+    public List<Genre> add(Set<String> genreNames) {
+        List<Genre> genreList = new ArrayList();
+        for (String genreName : genreNames) {
+            Long genreId = add(genreName);
+            genreList.add(new Genre(genreId, genreName));
         }
-        return genreIds;
+        return genreList;
     }
 
     public List<Genre> getByIds(Set<Long> genreIds) {

@@ -26,9 +26,12 @@ class BookRepositoryTest {
 
     @Test
     void update() {
-        Long id = bookRepository.insert(new Book(null, "test"));
-        bookRepository.update(id, "test2");
-        checkSelect(new Book(id, "test2"));
+        Book update = new Book(
+                bookRepository.insert(new Book(null, "test")),
+                "test2"
+        );
+        bookRepository.update(update);
+        checkSelect(update);
     }
 
     @Test

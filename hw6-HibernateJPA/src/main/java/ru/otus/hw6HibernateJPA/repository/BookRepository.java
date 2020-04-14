@@ -28,8 +28,8 @@ public class BookRepository {
         em.clear();
     }
 
-    public void update(Long id, String name) {
-        em.merge(new Book(id, name));
+    public void update(Book update) {
+        em.merge(update);
     }
 
     public Long insert(Book Book) {

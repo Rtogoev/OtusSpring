@@ -41,6 +41,14 @@ public class Book {
         this.name = name;
     }
 
+    public Book(String name, Long id, List<Author> authors, List<Genre> genres, List<Commentary> commentaries) {
+        this.name = name;
+        this.id = id;
+        this.authors = authors;
+        this.genres = genres;
+        this.commentaries = commentaries;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
