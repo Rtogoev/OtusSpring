@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import ru.otus.hw6HibernateJPA.model.Genre;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Set;
@@ -19,9 +20,13 @@ public class GenreRepository {
     }
 
     public Genre select(String name) {
+        try {
         return em.createQuery("select e from Genre e where e.name = :name", Genre.class)
                 .setParameter("name", name)
                 .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
 

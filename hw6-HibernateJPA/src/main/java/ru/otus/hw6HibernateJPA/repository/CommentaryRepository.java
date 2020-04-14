@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import ru.otus.hw6HibernateJPA.model.Commentary;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Set;
@@ -19,9 +20,13 @@ public class CommentaryRepository {
     }
 
     public Commentary select(String text) {
+        try {
         return em.createQuery("select e from Commentary e where e.text = :text", Commentary.class)
                 .setParameter("text", text)
                 .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
 

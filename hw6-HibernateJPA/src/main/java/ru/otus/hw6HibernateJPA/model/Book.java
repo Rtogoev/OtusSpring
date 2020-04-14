@@ -1,6 +1,7 @@
 package ru.otus.hw6HibernateJPA.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -84,12 +85,62 @@ public class Book {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Book book = (Book) o;
-        return Objects.equals(id, book.id) &&
-                Objects.equals(name, book.name) &&
-                Objects.equals(authors, book.authors) &&
-                Objects.equals(genres, book.genres) &&
-                Objects.equals(commentaries, book.commentaries);
+        Book that = (Book) o;
+
+        boolean isAuthorsEquals = false;
+        if (this.authors != null && that.authors != null) {
+            HashSet<Author> thisAuthorsSet = new HashSet<>(this.authors);
+            thisAuthorsSet.removeAll(that.authors);
+
+            HashSet<Author> thatAuthorsSet = new HashSet<>(that.authors);
+            thatAuthorsSet.removeAll(this.authors);
+
+            if (thisAuthorsSet.size() == 0 && thatAuthorsSet.size() == 0) {
+                isAuthorsEquals = true;
+            }
+        }
+        if (this.authors == null && that.authors == null) {
+            isAuthorsEquals = true;
+        }
+
+        boolean isGenresEquals = false;
+        if (this.genres != null && that.genres != null) {
+
+            HashSet<Genre> thisGenresSet = new HashSet<>(this.genres);
+            thisGenresSet.removeAll(that.genres);
+
+            HashSet<Genre> thatGenresSet = new HashSet<>(that.genres);
+            thatGenresSet.removeAll(this.genres);
+
+            if (thisGenresSet.size() == 0 && thatGenresSet.size() == 0) {
+                isGenresEquals = true;
+            }
+        }
+        if (this.genres == null && that.genres == null) {
+            isGenresEquals = true;
+        }
+
+        boolean isCommentariesEquals = false;
+        if (this.commentaries != null && that.commentaries != null) {
+            HashSet<Commentary> thisCommentariesSet = new HashSet<>(this.commentaries);
+            thisCommentariesSet.removeAll(that.commentaries);
+
+            HashSet<Commentary> thatCommentariesSet = new HashSet<>(that.commentaries);
+            thatCommentariesSet.removeAll(this.commentaries);
+
+            if (thisCommentariesSet.size() == 0 && thatCommentariesSet.size() == 0) {
+                isCommentariesEquals = true;
+            }
+        }
+        if (this.commentaries == null && that.commentaries == null) {
+            isCommentariesEquals = true;
+        }
+
+        return Objects.equals(id, that.id) &&
+                Objects.equals(name, that.name) &&
+                isAuthorsEquals &&
+                isGenresEquals &&
+                isCommentariesEquals;
     }
 
     @Override

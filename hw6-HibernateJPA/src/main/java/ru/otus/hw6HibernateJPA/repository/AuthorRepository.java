@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import ru.otus.hw6HibernateJPA.model.Author;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Set;
@@ -19,9 +20,13 @@ public class AuthorRepository {
     }
 
     public Author select(String name) {
-        return em.createQuery("select e from Author e where e.name = :name", Author.class)
-                .setParameter("name", name)
-                .getSingleResult();
+        try {
+            return em.createQuery("select e from Author e where e.name = :name", Author.class)
+                    .setParameter("name", name)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
 
@@ -44,8 +49,8 @@ public class AuthorRepository {
     }
 
     public List<Author> select(Set<Long> ids) {
-     return em.createQuery("select e from Author e where e.id in :ids", Author.class)
-             .setParameter("ids", ids)
-             .getResultList();
+        return em.createQuery("select e from Author e where e.id in :ids", Author.class)
+                .setParameter("ids", ids)
+                .getResultList();
     }
 }
