@@ -17,8 +17,8 @@ class GenreRepositoryTest {
 
     @Test
     void insert() {
-        String name = "test";
-        Long id = genreRepository.insert(name);
+        String name = "insert";
+        Long id = genreRepository.insert(new Genre(null, name));
 
         Genre expectedGenre = new Genre(id, name);
         checkSelect(expectedGenre);
@@ -26,14 +26,14 @@ class GenreRepositoryTest {
 
     @Test
     void update() {
-        Long id = genreRepository.insert("test");
-        genreRepository.update(id, "test2");
-        checkSelect(new Genre(id, "test2"));
+        Long id = genreRepository.insert(new Genre(null, "update"));
+        genreRepository.update(id, "update2");
+        checkSelect(new Genre(id, "update2"));
     }
 
     @Test
     void delete() {
-        Long id = genreRepository.insert("test");
+        Long id = genreRepository.insert(new Genre(null, "delete"));
 
         genreRepository.delete(id);
         assertNull(genreRepository.select(id));
@@ -41,7 +41,6 @@ class GenreRepositoryTest {
     }
 
     private void checkSelect(Genre expectedGenre) {
-
         assertEquals(
                 expectedGenre,
                 genreRepository.select(expectedGenre.getId())

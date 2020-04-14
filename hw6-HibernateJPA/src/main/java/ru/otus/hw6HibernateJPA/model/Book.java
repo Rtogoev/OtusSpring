@@ -28,7 +28,7 @@ public class Book {
     private List<Genre> genres;
 
     @ManyToMany
-    @JoinTable(name = "employees_projects",
+    @JoinTable(name = "book_commentary",
             joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "commentary_id", referencedColumnName = "id"))
     private List<Commentary> commentaries;

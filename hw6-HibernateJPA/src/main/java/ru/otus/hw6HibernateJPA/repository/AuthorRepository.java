@@ -31,15 +31,16 @@ public class AuthorRepository {
         )
                 .setParameter("id", id)
                 .executeUpdate();
+        em.clear();
     }
 
     public void update(Long id, String name) {
         em.merge(new Author(id, name));
     }
 
-    public Long insert(Author Author) {
-        em.persist(Author);
-        return Author.getId();
+    public Long insert(Author author) {
+        em.persist(author);
+        return author.getId();
     }
 
     public List<Author> select(Set<Long> ids) {

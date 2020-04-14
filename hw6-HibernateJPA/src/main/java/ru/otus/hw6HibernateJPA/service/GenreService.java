@@ -21,7 +21,7 @@ public class GenreService {
     public Long add(String name) {
         Genre select = genreRepository.select(name);
         if (select == null) {
-            return genreRepository.insert(name);
+            return genreRepository.insert(new Genre(null, name));
         }
         return select.getId();
     }

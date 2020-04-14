@@ -1,95 +1,51 @@
 package ru.otus.hw6HibernateJPA.repository;
 
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
 import ru.otus.hw6HibernateJPA.model.Genre;
 
-import java.util.*;
-
-import static java.util.Collections.singletonMap;
-import static ru.otus.hw6HibernateJPA.utils.Utils.generateLong;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
+import java.util.Set;
 
 @Repository
 public class GenreRepository {
 
-    private static final RowMapper<Genre> GENRE_DTO_ROW_MAPPER = (resultSet, i) -> new Genre(
-            resultSet.getLong("id"),
-            resultSet.getString("name")
-    );
-    private final NamedParameterJdbcOperations namedParameterJdbcOperations;
-private final JdbcTemplate jdbcTemplate;
-    public GenreRepository(NamedParameterJdbcOperations namedParameterJdbcOperations, JdbcTemplate jdbcTemplate) {
-        this.namedParameterJdbcOperations = namedParameterJdbcOperations;
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    @PersistenceContext
+    private EntityManager em;
 
-    public Long insert(String name) {
-        long id = generateLong();
-        Map<String, Object> params = new HashMap<>();
-        params.put("id", id);
-        params.put("name", name);
-        namedParameterJdbcOperations.update("INSERT INTO GENRES(id, name) VALUES(:id, :name);", params);
-        return id;
-    }
-
-    public Genre select(long id) {
-        Map<String, Object> params = singletonMap("id", id);
-        try {
-            return namedParameterJdbcOperations.queryForObject(
-                    "select * from GENRES where id = :id", params, GENRE_DTO_ROW_MAPPER
-            );
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
+    public Genre select(Long id) {
+        return em.find(Genre.class, id);
     }
 
     public Genre select(String name) {
-        Map<String, Object> params = singletonMap("name", name);
-        try {
-            return namedParameterJdbcOperations.queryForObject(
-                    "select * from GENRES where name = :name", params, GENRE_DTO_ROW_MAPPER
-            );
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
+        return em.createQuery("select e from Genre e where e.name = :name", Genre.class)
+                .setParameter("name", name)
+                .getSingleResult();
     }
 
-    public List<Genre> selectAll() {
-        try {
-            return namedParameterJdbcOperations.query("select * from GENRES", GENRE_DTO_ROW_MAPPER);
-        } catch (EmptyResultDataAccessException e) {
-            return Collections.emptyList();
-        }
+
+    public void delete(Long id) {
+        em.createQuery(
+                "delete from Genre e where e.id = :id"
+        )
+                .setParameter("id", id)
+                .executeUpdate();
+        em.clear();
     }
 
-    public void update(long id, String name) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("id", id);
-        params.put("name", name);
-        namedParameterJdbcOperations.update(
-                "update GENRES set name = :name where id = :id;",
-                params
-        );
+    public void update(Long id, String name) {
+        em.merge(new Genre(id, name));
     }
 
-    public void delete(long id) {
-        Map<String, Object> params = singletonMap("id", id);
-        namedParameterJdbcOperations.update(
-                "delete from GENRES where id = :id",
-                params
-        );
+    public Long insert(Genre genre) {
+        em.persist(genre);
+        return genre.getId();
     }
 
-        public List<Genre> select(Set<Long> genreIds) {
-            Map<String, Object> params = new HashMap<>();
-            params.put("ids", genreIds);
-            try {
-                return namedParameterJdbcOperations.query("select * from GENRES where ID IN (:ids)", params, GENRE_DTO_ROW_MAPPER);
-            } catch (EmptyResultDataAccessException e) {
-                return Collections.emptyList();
-            }
+    public List<Genre> select(Set<Long> ids) {
+        return em.createQuery("select e from Genre e where e.id in :ids", Genre.class)
+                .setParameter("ids", ids)
+                .getResultList();
     }
 }

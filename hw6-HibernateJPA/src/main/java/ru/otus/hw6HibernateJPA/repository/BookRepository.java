@@ -14,12 +14,6 @@ public class BookRepository {
     @PersistenceContext
     private EntityManager em;
 
-
-    public List<Book> selectAll() {
-        return em.createQuery("select e from Book e", Book.class).getResultList();
-    }
-
-
     public Book select(Long id) {
         return em.find(Book.class, id);
     }
@@ -31,17 +25,20 @@ public class BookRepository {
         )
                 .setParameter("id", id)
                 .executeUpdate();
+        em.clear();
     }
 
     public void update(Long id, String name) {
-        em.createQuery("update Book e set e.name = :name where e.id = :id")
-                .setParameter("id", id)
-                .setParameter("name", name)
-                .executeUpdate();
+        em.merge(new Book(id, name));
     }
 
-    public Long insert(Book book) {
-        em.persist(book);
-        return book.getId();
+    public Long insert(Book Book) {
+        em.persist(Book);
+        return Book.getId();
+    }
+
+    public List<Book> selectAll() {
+        return em.createQuery("select e from Book e", Book.class)
+                .getResultList();
     }
 }
