@@ -5,6 +5,4 @@ import ru.otus.hw7SpringData.model.Genre;
 
 public interface GenreRepository extends JpaRepository<Genre, Long> {
     Genre findGenreByName(String name);
-
-    void update(Long id, String name);
 }

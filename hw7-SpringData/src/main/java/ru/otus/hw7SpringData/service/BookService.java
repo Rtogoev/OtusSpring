@@ -26,7 +26,7 @@ public class BookService {
 
     public void update(Long id, String name, List<Author> authorList, List<Genre> genreList) {
         Book forUpdate = get(id);
-        bookRepository.update(
+        bookRepository.save(
                 new Book(
                         name,
                         forUpdate.getId(),
@@ -39,15 +39,15 @@ public class BookService {
 
     public void addCommentary(Long id, Commentary commentary) {
         Book forUpdate = get(id);
-        bookRepository.update(
-                new Book(
-                        forUpdate.getName(),
-                        forUpdate.getId(),
-                        forUpdate.getAuthors(),
-                        forUpdate.getGenres(),
-                        updateCommentaries(forUpdate.getCommentaries(), commentary)
-                )
-        );
+//        bookRepository.update(
+//                new Book(
+//                        forUpdate.getName(),
+//                        forUpdate.getId(),
+//                        forUpdate.getAuthors(),
+//                        forUpdate.getGenres(),
+//                        updateCommentaries(forUpdate.getCommentaries(), commentary)
+//                )
+//        );
     }
 
     private static List<Commentary> updateCommentaries(List<Commentary> commentaries, Commentary commentary) {

@@ -3,14 +3,13 @@ package ru.otus.hw7SpringData.repository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Import;
 import ru.otus.hw7SpringData.model.Genre;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DataJpaTest
-@Import(GenreRepository.class)
+//@Import(GenreRepository.class)
 class GenreRepositoryTest {
     @Autowired
     private GenreRepository genreRepository;
@@ -26,8 +25,9 @@ class GenreRepositoryTest {
     @Test
     void update() {
         Long id = genreRepository.save(new Genre(null, "update")).getId();
-        genreRepository.update(id, "update2");
-        checkSelect(new Genre(id, "update2"));
+        Genre update = new Genre(id, "update2");
+        genreRepository.save(update);
+        checkSelect(update);
     }
 
     @Test

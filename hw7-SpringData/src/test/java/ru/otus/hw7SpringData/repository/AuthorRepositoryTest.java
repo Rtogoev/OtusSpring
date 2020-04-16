@@ -3,14 +3,14 @@ package ru.otus.hw7SpringData.repository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Import;
 import ru.otus.hw7SpringData.model.Author;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DataJpaTest
-@Import(AuthorRepository.class)
+//@Import(AuthorRepository.class)
+//@Transactional
 class AuthorRepositoryTest {
     @Autowired
     private AuthorRepository authorRepository;
@@ -27,8 +27,9 @@ class AuthorRepositoryTest {
     @Test
     void update() {
         Long id = authorRepository.save(new Author(null, "update")).getId();
-        authorRepository.update(id, "update2");
-        checkSelect(new Author(id, "update2"));
+        Author expected = new Author(id, "update2");
+        authorRepository.save(expected);
+        checkSelect(expected);
     }
 
     @Test

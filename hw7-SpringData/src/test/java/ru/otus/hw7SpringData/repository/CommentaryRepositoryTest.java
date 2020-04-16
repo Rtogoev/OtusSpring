@@ -3,14 +3,13 @@ package ru.otus.hw7SpringData.repository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Import;
 import ru.otus.hw7SpringData.model.Commentary;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DataJpaTest
-@Import(CommentaryRepository.class)
+//@Import(CommentaryRepository.class)
 class CommentaryRepositoryTest {
     @Autowired
     private CommentaryRepository commentaryRepository;
@@ -25,8 +24,9 @@ class CommentaryRepositoryTest {
     @Test
     void update() {
         Long id = commentaryRepository.save(new Commentary(null, "update")).getId();
-        commentaryRepository.update(id, "update2");
-        checkSelect(new Commentary(id, "update2"));
+        Commentary update = new Commentary(id, "update2");
+        commentaryRepository.save(update);
+        checkSelect(update);
     }
 
     @Test

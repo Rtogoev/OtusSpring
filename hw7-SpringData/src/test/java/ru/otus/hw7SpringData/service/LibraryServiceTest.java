@@ -3,15 +3,10 @@ package ru.otus.hw7SpringData.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Import;
 import ru.otus.hw7SpringData.model.Author;
 import ru.otus.hw7SpringData.model.Book;
 import ru.otus.hw7SpringData.model.Commentary;
 import ru.otus.hw7SpringData.model.Genre;
-import ru.otus.hw7SpringData.repository.AuthorRepository;
-import ru.otus.hw7SpringData.repository.BookRepository;
-import ru.otus.hw7SpringData.repository.CommentaryRepository;
-import ru.otus.hw7SpringData.repository.GenreRepository;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,19 +14,19 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-@Import(
-        value = {
-                AuthorRepository.class,
-                GenreRepository.class,
-                BookRepository.class,
-                CommentaryRepository.class,
-                BookService.class,
-                GenreService.class,
-                AuthorService.class,
-                CommentaryService.class,
-                LibraryService.class
-        }
-)
+//@Import(
+//        value = {
+//                AuthorRepository.class,
+//                GenreRepository.class,
+//                BookRepository.class,
+//                CommentaryRepository.class,
+//                BookService.class,
+//                GenreService.class,
+//                AuthorService.class,
+//                CommentaryService.class,
+//                LibraryService.class
+//        }
+//)
 class LibraryServiceTest {
     @Autowired
     private GenreService genreService;

@@ -3,7 +3,6 @@ package ru.otus.hw7SpringData.repository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Import;
 import ru.otus.hw7SpringData.model.Book;
 
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-@Import(BookRepository.class)
+//@Import(BookRepository.class)
 class BookRepositoryTest {
     @Autowired
     private BookRepository bookRepository;
@@ -29,7 +28,7 @@ class BookRepositoryTest {
                 bookRepository.save(new Book(null, "save")).getId(),
                 "test2"
         );
-        bookRepository.update(update);
+//        bookRepository.update(update);
         checkSelect(update);
     }
 
