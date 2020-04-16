@@ -18,37 +18,36 @@ class CommentaryRepositoryTest {
     @Test
     void insert() {
         String name = "insert";
-        Long id = commentaryRepository.insert(new Commentary(null, name));
-
-        Commentary expectedCommentary = new Commentary(id, name);
+        Commentary expectedCommentary = commentaryRepository.save(new Commentary(null, name));
         checkSelect(expectedCommentary);
     }
 
     @Test
     void update() {
-        Long id = commentaryRepository.insert(new Commentary(null, "update"));
+        Long id = commentaryRepository.save(new Commentary(null, "update")).getId();
         commentaryRepository.update(id, "update2");
         checkSelect(new Commentary(id, "update2"));
     }
 
     @Test
     void delete() {
-        Long id = commentaryRepository.insert(new Commentary(null, "delete"));
+        Long id = commentaryRepository.save(new Commentary(null, "delete")).getId();
 
-        commentaryRepository.delete(id);
-        assertNull(commentaryRepository.select(id));
+        commentaryRepository.deleteById(id);
+        assertNull(commentaryRepository.findById(id).orElse(null));
 
     }
 
     private void checkSelect(Commentary expectedCommentary) {
         assertEquals(
                 expectedCommentary,
-                commentaryRepository.select(expectedCommentary.getId())
+                commentaryRepository.findById(expectedCommentary.getId())
+                        .orElse(null)
         );
 
         assertEquals(
                 expectedCommentary,
-                commentaryRepository.select(expectedCommentary.getText())
+                commentaryRepository.findCommentaryByText(expectedCommentary.getText())
         );
 
     }

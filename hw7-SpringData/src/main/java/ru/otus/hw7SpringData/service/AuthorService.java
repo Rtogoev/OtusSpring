@@ -16,19 +16,20 @@ public class AuthorService {
         this.authorRepository = authorRepository;
     }
 
-    public Long add(String name) {
-        Author select = authorRepository.select(name);
+    public Author add(String name) {
+        Author select = authorRepository.findAuthorByName(name);
         if (select == null) {
-            return authorRepository.insert(new Author(null, name));
+            return authorRepository.save(new Author(null, name));
         }
-        return select.getId();
+        return select;
     }
 
     public List<Author> add(Set<String> authorNames) {
         List<Author> authorList = new ArrayList<>();
         for (String authorName : authorNames) {
-            Long authorId = add(authorName);
-            authorList.add(new Author(authorId, authorName));
+            authorList.add(
+                    add(authorName)
+            );
         }
         return authorList;
     }

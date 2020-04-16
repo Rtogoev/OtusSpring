@@ -13,12 +13,9 @@ public class CommentaryService {
     }
 
     public Commentary add(String text) {
-        Commentary select = commentaryRepository.select(text);
+        Commentary select = commentaryRepository.findCommentaryByText(text);
         if (select == null) {
-            return new Commentary(
-                    commentaryRepository.insert(new Commentary(null, text)),
-                    text
-            );
+            return commentaryRepository.save(new Commentary(null, text));
         }
         return select;
     }

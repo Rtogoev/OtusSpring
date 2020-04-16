@@ -9,6 +9,7 @@ import ru.otus.hw7SpringData.model.Book;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 @DataJpaTest
 @Import(BookRepository.class)
 class BookRepositoryTest {
@@ -16,18 +17,16 @@ class BookRepositoryTest {
     private BookRepository bookRepository;
 
     @Test
-    void insert() {
+    void save() {
         String name = "test";
-        Long id = bookRepository.insert(new Book(null, name));
-
-        Book expectedBook = new Book(id, name);
+        Book expectedBook = bookRepository.save(new Book(null, name));
         checkSelect(expectedBook);
     }
 
     @Test
     void update() {
         Book update = new Book(
-                bookRepository.insert(new Book(null, "test")),
+                bookRepository.save(new Book(null, "save")).getId(),
                 "test2"
         );
         bookRepository.update(update);
@@ -36,23 +35,18 @@ class BookRepositoryTest {
 
     @Test
     void delete() {
-        Long id = bookRepository.insert(new Book(null, "test"));
-
-        bookRepository.delete(id);
-        assertNull(bookRepository.select(id));
+        Long id = bookRepository.save(new Book(null, "test")).getId();
+        bookRepository.deleteById(id);
+        assertNull(bookRepository.findById(id).orElse(null));
     }
 
     @Test
     void selectAll() {
-        Long id3 = bookRepository.insert(new Book(null,"test3"));
-        Long id4 = bookRepository.insert(new Book(null,"test4"));
-        Long id5 = bookRepository.insert(new Book(null,"test5"));
+        Book expected3 = bookRepository.save(new Book(null, "test3"));
+        Book expected4 = bookRepository.save(new Book(null, "test4"));
+        Book expected5 = bookRepository.save(new Book(null, "test5"));
 
-        Book expected3 = new Book(id3, "test3");
-        Book expected4 = new Book(id4, "test4");
-        Book expected5 = new Book(id5, "test5");
-
-        List<Book> books = bookRepository.selectAll();
+        List<Book> books = bookRepository.findAll();
 
         assertTrue(books.contains(expected3));
         assertTrue(books.contains(expected4));
@@ -62,7 +56,7 @@ class BookRepositoryTest {
     private void checkSelect(Book expectedBook) {
         assertEquals(
                 expectedBook,
-                bookRepository.select(expectedBook.getId())
+                bookRepository.findById(expectedBook.getId()).orElse(null)
         );
     }
 }

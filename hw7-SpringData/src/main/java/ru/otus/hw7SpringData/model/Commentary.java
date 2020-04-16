@@ -1,17 +1,19 @@
 package ru.otus.hw7SpringData.model;
 
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
-@Table(name = "commentaries")
 public class Commentary {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "text")
+
     private String text;
 
     public Commentary() {

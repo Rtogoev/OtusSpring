@@ -69,14 +69,14 @@ class LibraryServiceTest {
         List<Author> authors = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             String authorName = UUID.randomUUID().toString();
-            authors.add(new Author(authorService.add(authorName), authorName));
+            authors.add(authorService.add(authorName));
         }
 
 
         List<Genre> genres = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             String genreName = UUID.randomUUID().toString();
-            genres.add(new Genre(genreService.add(genreName), genreName));
+            genres.add(genreService.add(genreName));
         }
 
         String bookName = "add";
@@ -106,19 +106,19 @@ class LibraryServiceTest {
         List<Author> authors = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             String authorName = UUID.randomUUID().toString();
-            authors.add(new Author(authorService.add(authorName), authorName));
+            authors.add(authorService.add(authorName));
         }
 
-        Author everyWhereAuthor = new Author(authorService.add("everyWhereAuthor"), "everyWhereAuthor");
+        Author everyWhereAuthor = authorService.add("everyWhereAuthor");
         authors.add(everyWhereAuthor);
 
         List<Genre> genres = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             String genreName = UUID.randomUUID().toString();
-            genres.add(new Genre(genreService.add(genreName), genreName));
+            genres.add(genreService.add(genreName));
         }
 
-        Genre everyWhereGenre = new Genre(genreService.add("everyWhereGenre"), "everyWhereGenre");
+        Genre everyWhereGenre = genreService.add("everyWhereGenre");
         genres.add(everyWhereGenre);
 
         String bookName = "updateLibraryRecordTest";
@@ -135,14 +135,14 @@ class LibraryServiceTest {
         List<Author> expectedAuthors = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             String expectedAuthorName = UUID.randomUUID().toString();
-            expectedAuthors.add(new Author(authorService.add(expectedAuthorName), expectedAuthorName));
+            expectedAuthors.add(authorService.add(expectedAuthorName));
         }
         expectedAuthors.add(everyWhereAuthor);
 
         List<Genre> expectedGenres = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             String expectedGenreName = UUID.randomUUID().toString();
-            expectedGenres.add(new Genre(genreService.add(expectedGenreName), expectedGenreName));
+            expectedGenres.add(genreService.add(expectedGenreName));
         }
         expectedGenres.add(everyWhereGenre);
 
@@ -173,14 +173,14 @@ class LibraryServiceTest {
         List<Author> authors = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             String authorName = UUID.randomUUID().toString();
-            authors.add(new Author(authorService.add(authorName), authorName));
+            authors.add(authorService.add(authorName));
         }
 
 
         List<Genre> genres = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             String genreName = UUID.randomUUID().toString();
-            genres.add(new Genre(genreService.add(genreName), genreName));
+            genres.add(genreService.add(genreName));
         }
 
         String bookName = "addLibraryRecordTest";
@@ -204,14 +204,14 @@ class LibraryServiceTest {
             List<Author> authors = new ArrayList<>();
             for (int i = 0; i < 3; i++) {
                 String authorName = UUID.randomUUID().toString();
-                authors.add(new Author(authorService.add(authorName), authorName));
+                authors.add(authorService.add(authorName));
             }
 
 
             List<Genre> genres = new ArrayList<>();
             for (int i = 0; i < 4; i++) {
                 String genreName = UUID.randomUUID().toString();
-                genres.add(new Genre(genreService.add(genreName), genreName));
+                genres.add(genreService.add(genreName));
             }
 
             String bookName = UUID.randomUUID().toString();

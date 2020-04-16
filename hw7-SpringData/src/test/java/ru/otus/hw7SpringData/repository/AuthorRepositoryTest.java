@@ -18,7 +18,7 @@ class AuthorRepositoryTest {
     @Test
     void insert() {
         String name = "insert";
-        Long id = authorRepository.insert(new Author(null, name));
+        Long id = authorRepository.save(new Author(null, name)).getId();
 
         Author expectedAuthor = new Author(id, name);
         checkSelect(expectedAuthor);
@@ -26,29 +26,30 @@ class AuthorRepositoryTest {
 
     @Test
     void update() {
-        Long id = authorRepository.insert(new Author(null, "update"));
+        Long id = authorRepository.save(new Author(null, "update")).getId();
         authorRepository.update(id, "update2");
         checkSelect(new Author(id, "update2"));
     }
 
     @Test
     void delete() {
-        Long id = authorRepository.insert(new Author(null, "delete"));
+        Long id = authorRepository.save(new Author(null, "delete")).getId();
 
-        authorRepository.delete(id);
-        assertNull(authorRepository.select(id));
+        authorRepository.deleteById(id);
+        assertNull(authorRepository.findById(id).orElse(null));
 
     }
 
     private void checkSelect(Author expectedAuthor) {
         assertEquals(
                 expectedAuthor,
-                authorRepository.select(expectedAuthor.getId())
+                authorRepository.findById(expectedAuthor.getId())
+                        .orElse(null)
         );
 
         assertEquals(
                 expectedAuthor,
-                authorRepository.select(expectedAuthor.getName())
+                authorRepository.findAuthorByName(expectedAuthor.getName())
         );
 
     }

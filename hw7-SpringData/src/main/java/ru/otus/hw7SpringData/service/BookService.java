@@ -20,7 +20,8 @@ public class BookService {
     }
 
     public Book get(Long id) {
-        return bookRepository.select(id);
+        return bookRepository.findById(id)
+                .orElse(null);
     }
 
     public void update(Long id, String name, List<Author> authorList, List<Genre> genreList) {
@@ -60,14 +61,14 @@ public class BookService {
     }
 
     public void delete(Long id) {
-        bookRepository.delete(id);
+        bookRepository.deleteById(id);
     }
 
     public List<Book> getAll() {
-        return bookRepository.selectAll();
+        return bookRepository.findAll();
     }
 
     public Long add(Book book) {
-        return bookRepository.insert(book);
+        return bookRepository.save(book).getId();
     }
 }

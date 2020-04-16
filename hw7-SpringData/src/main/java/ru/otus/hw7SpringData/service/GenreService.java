@@ -18,19 +18,20 @@ public class GenreService {
         this.genreRepository = genreRepository;
     }
 
-    public Long add(String name) {
-        Genre select = genreRepository.select(name);
+    public Genre add(String name) {
+        Genre select = genreRepository.findGenreByName(name);
         if (select == null) {
-            return genreRepository.insert(new Genre(null, name));
+            return genreRepository.save(new Genre(null, name));
         }
-        return select.getId();
+        return select;
     }
 
     public List<Genre> add(Set<String> genreNames) {
-        List<Genre> genreList = new ArrayList();
+        List<Genre> genreList = new ArrayList<>();
         for (String genreName : genreNames) {
-            Long genreId = add(genreName);
-            genreList.add(new Genre(genreId, genreName));
+            genreList.add(
+                    add(genreName)
+            );
         }
         return genreList;
     }
