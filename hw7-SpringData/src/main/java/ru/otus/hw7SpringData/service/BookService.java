@@ -39,15 +39,15 @@ public class BookService {
 
     public void addCommentary(Long id, Commentary commentary) {
         Book forUpdate = get(id);
-//        bookRepository.update(
-//                new Book(
-//                        forUpdate.getName(),
-//                        forUpdate.getId(),
-//                        forUpdate.getAuthors(),
-//                        forUpdate.getGenres(),
-//                        updateCommentaries(forUpdate.getCommentaries(), commentary)
-//                )
-//        );
+        bookRepository.save(
+                new Book(
+                        forUpdate.getName(),
+                        forUpdate.getId(),
+                        forUpdate.getAuthors(),
+                        forUpdate.getGenres(),
+                        updateCommentaries(forUpdate.getCommentaries(), commentary)
+                )
+        );
     }
 
     private static List<Commentary> updateCommentaries(List<Commentary> commentaries, Commentary commentary) {

@@ -3,6 +3,7 @@ package ru.otus.hw7SpringData.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 import ru.otus.hw7SpringData.model.Author;
 import ru.otus.hw7SpringData.model.Book;
 import ru.otus.hw7SpringData.model.Commentary;
@@ -14,6 +15,15 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
+@Import(
+        value = {
+                BookService.class,
+                GenreService.class,
+                AuthorService.class,
+                CommentaryService.class,
+                LibraryService.class
+        }
+)
 class LibraryServiceTest {
     @Autowired
     private GenreService genreService;
@@ -46,7 +56,7 @@ class LibraryServiceTest {
         assertEquals(expectedTexts, actualTexts);
     }
 
-        @Test
+    @Test
     void add() {
         List<Author> authors = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
