@@ -4,6 +4,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -36,7 +37,7 @@ public class Book {
     @JoinTable(name = "book_commentary",
             joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "commentary_id", referencedColumnName = "id"))
-    private List<Commentary> commentaries;
+    private List<Commentary> commentaries = new ArrayList<>(); 
 
     public Book() {
     }
