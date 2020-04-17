@@ -10,7 +10,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-//@Import(BookRepository.class)
 class BookRepositoryTest {
     @Autowired
     private BookRepository bookRepository;
@@ -28,7 +27,7 @@ class BookRepositoryTest {
                 bookRepository.save(new Book(null, "save")).getId(),
                 "test2"
         );
-//        bookRepository.update(update);
+        bookRepository.save(new Book(update.getId(),"test2"));
         checkSelect(update);
     }
 

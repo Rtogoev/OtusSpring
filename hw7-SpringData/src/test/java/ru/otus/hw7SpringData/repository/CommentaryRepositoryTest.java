@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DataJpaTest
-//@Import(CommentaryRepository.class)
 class CommentaryRepositoryTest {
     @Autowired
     private CommentaryRepository commentaryRepository;

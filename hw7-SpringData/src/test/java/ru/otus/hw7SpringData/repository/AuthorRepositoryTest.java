@@ -9,8 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DataJpaTest
-//@Import(AuthorRepository.class)
-//@Transactional
 class AuthorRepositoryTest {
     @Autowired
     private AuthorRepository authorRepository;

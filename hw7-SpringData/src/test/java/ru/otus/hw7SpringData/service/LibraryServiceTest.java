@@ -14,19 +14,6 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-//@Import(
-//        value = {
-//                AuthorRepository.class,
-//                GenreRepository.class,
-//                BookRepository.class,
-//                CommentaryRepository.class,
-//                BookService.class,
-//                GenreService.class,
-//                AuthorService.class,
-//                CommentaryService.class,
-//                LibraryService.class
-//        }
-//)
 class LibraryServiceTest {
     @Autowired
     private GenreService genreService;

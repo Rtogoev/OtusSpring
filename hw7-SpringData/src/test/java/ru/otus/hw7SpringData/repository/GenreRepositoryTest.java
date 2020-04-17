@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DataJpaTest
-//@Import(GenreRepository.class)
 class GenreRepositoryTest {
     @Autowired
     private GenreRepository genreRepository;
