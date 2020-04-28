@@ -1,8 +1,10 @@
 package ru.otus.hw8SpringDataNoSQL.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import ru.otus.hw8SpringDataNoSQL.model.Author;
 
-public interface AuthorRepository extends JpaRepository<Author, Long> {
-    Author findAuthorByName(String name);
+import java.util.Optional;
+
+public interface AuthorRepository extends MongoRepository<Author, String> {
+    Optional<Author> findByName(String name);
 }

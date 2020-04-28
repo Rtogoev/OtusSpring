@@ -1,8 +1,11 @@
 package ru.otus.hw8SpringDataNoSQL.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
 import ru.otus.hw8SpringDataNoSQL.model.Genre;
 
-public interface GenreRepository extends JpaRepository<Genre, Long> {
-    Genre findGenreByName(String name);
+import java.util.Optional;
+
+public interface GenreRepository extends MongoRepository<Genre, String> {
+    Optional<Genre> findByName(String name);
 }

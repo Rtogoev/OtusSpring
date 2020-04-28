@@ -19,19 +19,19 @@ public class MyCommands {
     }
 
     @ShellMethod("Example: add-commentary bookId text")
-    public void addCommentary(Long bookId, String text) {
+    public void addCommentary(String bookId, String text) {
         libraryService.addCommentary(bookId, text);
     }
 
     @ShellMethod("Example: add name --authors author1,author2 --genres genre1,genre2")
-    public Long add(String name, String authors, String genres) {
+    public String add(String name, String authors, String genres) {
         Set<String> authorList = Utils.split(authors);
         Set<String> genreList = Utils.split(genres);
         return libraryService.add(name, authorList, genreList);
     }
 
     @ShellMethod("Example: update id name --authors author1,author2 --genres genre1,genre2")
-    public void update(Long id, String name, String authors, String genres) {
+    public void update(String id, String name, String authors, String genres) {
         Set<String> authorList = Utils.split(authors);
         Set<String> genreList = Utils.split(genres);
         libraryService.update(id, name, authorList, genreList);
@@ -44,13 +44,13 @@ public class MyCommands {
     }
 
     @ShellMethod("get book by id")
-    public Book get(Long id) {
+    public Book get(String id) {
         return libraryService.get(id);
     }
 
 
     @ShellMethod("delete book by id")
-    public void remove(Long id) {
+    public void remove(String id) {
         libraryService.remove(id);
     }
 }

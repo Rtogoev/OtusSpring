@@ -7,6 +7,7 @@ import ru.otus.hw8SpringDataNoSQL.repository.AuthorRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthorService {
@@ -17,20 +18,20 @@ public class AuthorService {
     }
 
     public Author add(String name) {
-        Author select = authorRepository.findAuthorByName(name);
-        if (select == null) {
-            return authorRepository.save(new Author(null, name));
-        }
-        return select;
+        return authorRepository.findByName(name)
+                .orElseGet(
+                        () -> authorRepository.save(new Author(null, name))
+                );
     }
 
     public List<Author> add(Set<String> authorNames) {
-        List<Author> authorList = new ArrayList<>();
-        for (String authorName : authorNames) {
-            authorList.add(
-                    add(authorName)
-            );
-        }
-        return authorList;
+        List<Author> authors = new ArrayList<>();
+        authorRepository.saveAll(
+                authorNames.stream()
+                        .map(name -> new Author(null, name))
+                        .collect(Collectors.toList())
+        )
+                .forEach(authors::add);
+        return authors;
     }
 }

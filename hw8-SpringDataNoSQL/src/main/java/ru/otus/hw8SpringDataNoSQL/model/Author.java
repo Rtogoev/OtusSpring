@@ -1,29 +1,24 @@
 package ru.otus.hw8SpringDataNoSQL.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Objects;
 
-@Entity
+@Document
 public class Author {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    private final String id;
+    private final String name;
 
-    private String name;
-
-    public Author() {
-    }
-
-    public Author(Long id, String name) {
+    public Author(String id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -48,7 +43,7 @@ public class Author {
     @Override
     public String toString() {
         return "Author{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 '}';
     }

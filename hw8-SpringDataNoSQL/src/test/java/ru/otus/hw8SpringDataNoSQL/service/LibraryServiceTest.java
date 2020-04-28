@@ -2,25 +2,22 @@ package ru.otus.hw8SpringDataNoSQL.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.context.annotation.Import;
 import ru.otus.hw8SpringDataNoSQL.model.Author;
 import ru.otus.hw8SpringDataNoSQL.model.Book;
-import ru.otus.hw8SpringDataNoSQL.model.Commentary;
 import ru.otus.hw8SpringDataNoSQL.model.Genre;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-@DataJpaTest
+@DataMongoTest
 @Import(
         value = {
                 BookService.class,
                 GenreService.class,
                 AuthorService.class,
-                CommentaryService.class,
                 LibraryService.class
         }
 )
@@ -34,7 +31,7 @@ class LibraryServiceTest {
 
     @Test
     void addCommentary() {
-        Long id = libraryService.add(
+        String id = libraryService.add(
                 "name",
                 Collections.singleton("author"),
                 Collections.singleton("genre")
@@ -42,18 +39,13 @@ class LibraryServiceTest {
         libraryService.addCommentary(id, "text");
         libraryService.addCommentary(id, "text");
         libraryService.addCommentary(id, "text2");
-        List<Commentary> commentaries = libraryService.get(id).getCommentaries();
+        List<String> commentaries = libraryService.get(id).getCommentaries();
         assertEquals(3, commentaries.size());
         List<String> expectedTexts = new ArrayList<>();
         expectedTexts.add("text");
         expectedTexts.add("text2");
         Collections.sort(expectedTexts);
-        List<String> actualTexts = commentaries.stream()
-                .map(Commentary::getText)
-                .distinct()
-                .sorted()
-                .collect(Collectors.toList());
-        assertEquals(expectedTexts, actualTexts);
+        assertEquals(expectedTexts, commentaries);
     }
 
     @Test
@@ -72,7 +64,7 @@ class LibraryServiceTest {
         }
 
         String bookName = "add";
-        Long bookId = libraryService.add(
+        String bookId = libraryService.add(
                 bookName,
                 authors.stream()
                         .map(Author::getName)
@@ -114,7 +106,7 @@ class LibraryServiceTest {
         genres.add(everyWhereGenre);
 
         String bookName = "updateLibraryRecordTest";
-        Long bookId = libraryService.add(
+        String bookId = libraryService.add(
                 bookName,
                 authors.stream()
                         .map(Author::getName)
@@ -176,7 +168,7 @@ class LibraryServiceTest {
         }
 
         String bookName = "addLibraryRecordTest";
-        Long bookId = libraryService.add(
+        String bookId = libraryService.add(
                 bookName,
                 authors.stream()
                         .map(Author::getName)
@@ -207,7 +199,7 @@ class LibraryServiceTest {
             }
 
             String bookName = UUID.randomUUID().toString();
-            Long bookId = libraryService.add(
+            String bookId = libraryService.add(
                     bookName,
                     authors.stream()
                             .map(Author::getName)

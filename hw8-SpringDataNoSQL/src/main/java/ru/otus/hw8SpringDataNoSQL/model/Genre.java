@@ -1,26 +1,20 @@
 package ru.otus.hw8SpringDataNoSQL.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Objects;
 
-@Entity
+@Document
 public class Genre {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private final String id;
+    private final String name;
 
-    private String name;
-
-    public Genre(Long id, String name) {
+    public Genre(String id, String name) {
         this.id = id;
         this.name = name;
-    }
-
-    public Genre() {
     }
 
     @Override
@@ -37,19 +31,19 @@ public class Genre {
         return Objects.hash(id, name);
     }
 
-    @Override
-    public String toString() {
-        return "Genre{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
-
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Genre{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

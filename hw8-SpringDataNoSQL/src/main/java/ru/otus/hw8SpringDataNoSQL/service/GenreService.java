@@ -7,6 +7,7 @@ import ru.otus.hw8SpringDataNoSQL.repository.GenreRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class GenreService {
@@ -19,20 +20,20 @@ public class GenreService {
     }
 
     public Genre add(String name) {
-        Genre select = genreRepository.findGenreByName(name);
-        if (select == null) {
-            return genreRepository.save(new Genre(null, name));
-        }
-        return select;
+        return genreRepository.findByName(name)
+                .orElseGet(
+                        () -> genreRepository.save(new Genre(null, name))
+                );
     }
 
     public List<Genre> add(Set<String> genreNames) {
         List<Genre> genreList = new ArrayList<>();
-        for (String genreName : genreNames) {
-            genreList.add(
-                    add(genreName)
-            );
-        }
+        genreRepository.saveAll(
+                genreNames.stream()
+                .map(name -> new Genre(null, name))
+                .collect(Collectors.toList())
+        )
+                .forEach(genreList::add);
         return genreList;
     }
 }

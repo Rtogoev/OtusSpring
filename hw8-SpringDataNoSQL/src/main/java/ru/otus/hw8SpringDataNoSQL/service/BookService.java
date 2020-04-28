@@ -3,7 +3,6 @@ package ru.otus.hw8SpringDataNoSQL.service;
 import org.springframework.stereotype.Service;
 import ru.otus.hw8SpringDataNoSQL.model.Author;
 import ru.otus.hw8SpringDataNoSQL.model.Book;
-import ru.otus.hw8SpringDataNoSQL.model.Commentary;
 import ru.otus.hw8SpringDataNoSQL.model.Genre;
 import ru.otus.hw8SpringDataNoSQL.repository.BookRepository;
 
@@ -19,12 +18,12 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public Book get(Long id) {
+    public Book get(String id) {
         return bookRepository.findById(id)
                 .orElse(null);
     }
 
-    public void update(Long id, String name, List<Author> authorList, List<Genre> genreList) {
+    public void update(String id, String name, List<Author> authorList, List<Genre> genreList) {
         Book forUpdate = get(id);
         bookRepository.save(
                 new Book(
@@ -37,7 +36,7 @@ public class BookService {
         );
     }
 
-    public void addCommentary(Long id, Commentary commentary) {
+    public void addCommentary(String id, String commentary) {
         Book forUpdate = get(id);
         bookRepository.save(
                 new Book(
@@ -50,9 +49,9 @@ public class BookService {
         );
     }
 
-    private static List<Commentary> updateCommentaries(List<Commentary> commentaries, Commentary commentary) {
+    private static List<String> updateCommentaries(List<String> commentaries, String commentary) {
         if (commentaries == null) {
-            List<Commentary> newCommentaries = new ArrayList<>();
+            List<String> newCommentaries = new ArrayList<>();
             newCommentaries.add(commentary);
             return newCommentaries;
         }
@@ -60,7 +59,7 @@ public class BookService {
         return commentaries;
     }
 
-    public void delete(Long id) {
+    public void delete(String id) {
         bookRepository.deleteById(id);
     }
 
@@ -68,7 +67,7 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public Long add(Book book) {
+    public String add(Book book) {
         return bookRepository.save(book).getId();
     }
 }

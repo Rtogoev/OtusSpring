@@ -2,13 +2,13 @@ package ru.otus.hw8SpringDataNoSQL.repository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import ru.otus.hw8SpringDataNoSQL.model.Genre;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-@DataJpaTest
+@DataMongoTest
 class GenreRepositoryTest {
     @Autowired
     private GenreRepository genreRepository;
@@ -23,7 +23,7 @@ class GenreRepositoryTest {
 
     @Test
     void update() {
-        Long id = genreRepository.save(new Genre(null, "update")).getId();
+        String id = genreRepository.save(new Genre(null, "update")).getId();
         Genre update = new Genre(id, "update2");
         genreRepository.save(update);
         checkSelect(update);
@@ -31,7 +31,7 @@ class GenreRepositoryTest {
 
     @Test
     void delete() {
-        Long id = genreRepository.save(new Genre(null, "delete")).getId();
+        String id = genreRepository.save(new Genre(null, "delete")).getId();
 
         genreRepository.deleteById(id);
         assertNull(genreRepository.findById(id).orElse(null));
@@ -46,7 +46,7 @@ class GenreRepositoryTest {
 
         assertEquals(
                 expectedGenre,
-                genreRepository.findGenreByName(expectedGenre.getName())
+                genreRepository.findByName(expectedGenre.getName()).get()
         );
 
     }

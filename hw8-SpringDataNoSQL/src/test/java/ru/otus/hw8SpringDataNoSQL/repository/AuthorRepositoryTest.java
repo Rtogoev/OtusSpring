@@ -2,13 +2,13 @@ package ru.otus.hw8SpringDataNoSQL.repository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import ru.otus.hw8SpringDataNoSQL.model.Author;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-@DataJpaTest
+@DataMongoTest
 class AuthorRepositoryTest {
     @Autowired
     private AuthorRepository authorRepository;
@@ -16,7 +16,7 @@ class AuthorRepositoryTest {
     @Test
     void insert() {
         String name = "insert";
-        Long id = authorRepository.save(new Author(null, name)).getId();
+        String id = authorRepository.save(new Author(null, name)).getId();
 
         Author expectedAuthor = new Author(id, name);
         checkSelect(expectedAuthor);
@@ -24,7 +24,7 @@ class AuthorRepositoryTest {
 
     @Test
     void update() {
-        Long id = authorRepository.save(new Author(null, "update")).getId();
+        String id = authorRepository.save(new Author(null, "update")).getId();
         Author expected = new Author(id, "update2");
         authorRepository.save(expected);
         checkSelect(expected);
@@ -32,7 +32,7 @@ class AuthorRepositoryTest {
 
     @Test
     void delete() {
-        Long id = authorRepository.save(new Author(null, "delete")).getId();
+        String id = authorRepository.save(new Author(null, "delete")).getId();
 
         authorRepository.deleteById(id);
         assertNull(authorRepository.findById(id).orElse(null));
@@ -48,7 +48,7 @@ class AuthorRepositoryTest {
 
         assertEquals(
                 expectedAuthor,
-                authorRepository.findAuthorByName(expectedAuthor.getName())
+                authorRepository.findByName(expectedAuthor.getName()).get()
         );
 
     }

@@ -1,53 +1,31 @@
 package ru.otus.hw8SpringDataNoSQL.model;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
+@Document
 public class Book {
 
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String name;
-
-    @Fetch(FetchMode.SUBSELECT)
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "book_author",
-            joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"))
+    private final String id;
+    private final String name;
+    @DBRef
     private List<Author> authors;
-
-    @Fetch(FetchMode.SUBSELECT)
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "book_genre",
-            joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
+    @DBRef
     private List<Genre> genres;
+    private List<String> commentaries;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "book_commentary",
-            joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "commentary_id", referencedColumnName = "id"))
-    private List<Commentary> commentaries = new ArrayList<>(); 
-
-    public Book() {
-    }
-
-    public Book(Long id, String name) {
+    public Book(String id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Book(String name, Long id, List<Author> authors, List<Genre> genres, List<Commentary> commentaries) {
+    public Book(String name, String id, List<Author> authors, List<Genre> genres, List<String> commentaries) {
         this.name = name;
         this.id = id;
         this.authors = authors;
@@ -55,18 +33,7 @@ public class Book {
         this.commentaries = commentaries;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", authors=" + authors +
-                ", genres=" + genres +
-                ", commentaries=" + commentaries +
-                '}';
-    }
-
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -82,7 +49,7 @@ public class Book {
         return genres;
     }
 
-    public List<Commentary> getCommentaries() {
+    public List<String> getCommentaries() {
         return commentaries;
     }
 
@@ -92,7 +59,7 @@ public class Book {
         if (o == null || getClass() != o.getClass()) return false;
         Book that = (Book) o;
 
-        boolean isAuthorsEquals = false;
+        boolean areAuthorsEquals = false;
         if (this.authors != null && that.authors != null) {
             HashSet<Author> thisAuthorsSet = new HashSet<>(this.authors);
             thisAuthorsSet.removeAll(that.authors);
@@ -101,14 +68,14 @@ public class Book {
             thatAuthorsSet.removeAll(this.authors);
 
             if (thisAuthorsSet.size() == 0 && thatAuthorsSet.size() == 0) {
-                isAuthorsEquals = true;
+                areAuthorsEquals = true;
             }
         }
         if (this.authors == null && that.authors == null) {
-            isAuthorsEquals = true;
+            areAuthorsEquals = true;
         }
 
-        boolean isGenresEquals = false;
+        boolean areGenresEquals = false;
         if (this.genres != null && that.genres != null) {
 
             HashSet<Genre> thisGenresSet = new HashSet<>(this.genres);
@@ -118,38 +85,49 @@ public class Book {
             thatGenresSet.removeAll(this.genres);
 
             if (thisGenresSet.size() == 0 && thatGenresSet.size() == 0) {
-                isGenresEquals = true;
+                areGenresEquals = true;
             }
         }
         if (this.genres == null && that.genres == null) {
-            isGenresEquals = true;
+            areGenresEquals = true;
         }
 
-        boolean isCommentariesEquals = false;
+        boolean areCommentariesEquals = false;
         if (this.commentaries != null && that.commentaries != null) {
-            HashSet<Commentary> thisCommentariesSet = new HashSet<>(this.commentaries);
+            HashSet<String> thisCommentariesSet = new HashSet<>(this.commentaries);
             thisCommentariesSet.removeAll(that.commentaries);
 
-            HashSet<Commentary> thatCommentariesSet = new HashSet<>(that.commentaries);
+            HashSet<String> thatCommentariesSet = new HashSet<>(that.commentaries);
             thatCommentariesSet.removeAll(this.commentaries);
 
             if (thisCommentariesSet.size() == 0 && thatCommentariesSet.size() == 0) {
-                isCommentariesEquals = true;
+                areCommentariesEquals = true;
             }
         }
         if (this.commentaries == null && that.commentaries == null) {
-            isCommentariesEquals = true;
+            areCommentariesEquals = true;
         }
 
         return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name) &&
-                isAuthorsEquals &&
-                isGenresEquals &&
-                isCommentariesEquals;
+                areAuthorsEquals &&
+                areGenresEquals &&
+                areCommentariesEquals;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, name, authors, genres, commentaries);
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", authors=" + authors +
+                ", genres=" + genres +
+                ", commentaries=" + commentaries +
+                '}';
     }
 }

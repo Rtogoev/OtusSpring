@@ -2,14 +2,14 @@ package ru.otus.hw8SpringDataNoSQL.repository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import ru.otus.hw8SpringDataNoSQL.model.Book;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DataJpaTest
+@DataMongoTest
 class BookRepositoryTest {
     @Autowired
     private BookRepository bookRepository;
@@ -33,7 +33,7 @@ class BookRepositoryTest {
 
     @Test
     void delete() {
-        Long id = bookRepository.save(new Book(null, "test")).getId();
+        String id = bookRepository.save(new Book(null, "test")).getId();
         bookRepository.deleteById(id);
         assertNull(bookRepository.findById(id).orElse(null));
     }
