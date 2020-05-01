@@ -36,15 +36,20 @@ class LibraryServiceTest {
                 Collections.singleton("author"),
                 Collections.singleton("genre")
         );
+
         libraryService.addCommentary(id, "text");
         libraryService.addCommentary(id, "text");
         libraryService.addCommentary(id, "text2");
+
         List<String> commentaries = libraryService.get(id).getCommentaries();
         assertEquals(3, commentaries.size());
+
         List<String> expectedTexts = new ArrayList<>();
+        expectedTexts.add("text");
         expectedTexts.add("text");
         expectedTexts.add("text2");
         Collections.sort(expectedTexts);
+
         assertEquals(expectedTexts, commentaries);
     }
 
