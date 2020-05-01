@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import ru.otus.hw8SpringDataNoSQL.model.Author;
 import ru.otus.hw8SpringDataNoSQL.repository.AuthorRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -25,13 +24,8 @@ public class AuthorService {
     }
 
     public List<Author> add(Set<String> authorNames) {
-        List<Author> authors = new ArrayList<>();
-        authorRepository.saveAll(
-                authorNames.stream()
-                        .map(name -> new Author(null, name))
-                        .collect(Collectors.toList())
-        )
-                .forEach(authors::add);
-        return authors;
+        return authorNames.stream()
+                .map(this::add)
+                .collect(Collectors.toList());
     }
 }

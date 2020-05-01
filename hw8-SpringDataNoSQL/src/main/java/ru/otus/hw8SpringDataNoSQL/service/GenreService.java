@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import ru.otus.hw8SpringDataNoSQL.model.Genre;
 import ru.otus.hw8SpringDataNoSQL.repository.GenreRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -27,13 +26,8 @@ public class GenreService {
     }
 
     public List<Genre> add(Set<String> genreNames) {
-        List<Genre> genreList = new ArrayList<>();
-        genreRepository.saveAll(
-                genreNames.stream()
-                .map(name -> new Genre(null, name))
-                .collect(Collectors.toList())
-        )
-                .forEach(genreList::add);
-        return genreList;
+        return genreNames.stream()
+                .map(this::add)
+                .collect(Collectors.toList());
     }
 }
