@@ -15,15 +15,10 @@ public class Book {
     private final String id;
     private final String name;
     @DBRef
-    private List<Author> authors;
+    private final List<Author> authors;
     @DBRef
-    private List<Genre> genres;
-    private List<String> commentaries;
-
-    public Book(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+    private final List<Genre> genres;
+    private final List<String> commentaries;
 
     public Book(String name, String id, List<Author> authors, List<Genre> genres, List<String> commentaries) {
         this.name = name;

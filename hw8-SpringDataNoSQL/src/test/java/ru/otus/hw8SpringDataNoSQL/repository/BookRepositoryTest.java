@@ -17,32 +17,52 @@ class BookRepositoryTest {
     @Test
     void save() {
         String name = "test";
-        Book expectedBook = bookRepository.save(new Book(null, name));
+        Book expectedBook = bookRepository.save(createBook(name));
         checkSelect(expectedBook);
+    }
+
+    private Book createBook(String name) {
+        return new Book(
+                name,
+                null,
+                null,
+                null,
+                null
+        );
     }
 
     @Test
     void update() {
-        Book update = new Book(
-                bookRepository.save(new Book(null, "save")).getId(),
+        Book update = createBook(
+                bookRepository.save(createBook("save")).getId(),
                 "test2"
         );
-        bookRepository.save(new Book(update.getId(),"test2"));
+        bookRepository.save(createBook(update.getId(), "test2"));
         checkSelect(update);
+    }
+
+    private Book createBook(String id, String name) {
+        return new Book(
+                name,
+                id,
+                null,
+                null,
+                null
+        );
     }
 
     @Test
     void delete() {
-        String id = bookRepository.save(new Book(null, "test")).getId();
+        String id = bookRepository.save(createBook("test")).getId();
         bookRepository.deleteById(id);
         assertNull(bookRepository.findById(id).orElse(null));
     }
 
     @Test
     void selectAll() {
-        Book expected3 = bookRepository.save(new Book(null, "test3"));
-        Book expected4 = bookRepository.save(new Book(null, "test4"));
-        Book expected5 = bookRepository.save(new Book(null, "test5"));
+        Book expected3 = bookRepository.save(createBook( "test3"));
+        Book expected4 = bookRepository.save(createBook( "test4"));
+        Book expected5 = bookRepository.save(createBook( "test5"));
 
         List<Book> books = bookRepository.findAll();
 
