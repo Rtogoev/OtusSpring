@@ -1,4 +1,7 @@
 spring:
   data:
     mongodb:
-      database: company
+      authentication-database: none
+      database: library
+      port: 27017
+      host: localhost
