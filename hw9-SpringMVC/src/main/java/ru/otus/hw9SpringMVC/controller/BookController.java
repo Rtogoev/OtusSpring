@@ -2,7 +2,10 @@ package ru.otus.hw9SpringMVC.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 import ru.otus.hw9SpringMVC.model.BookForm;
 import ru.otus.hw9SpringMVC.service.BookFormService;
@@ -21,17 +24,12 @@ public class BookController {
         this.bookFormService = bookFormService;
     }
 
-
-    @GetMapping("/book/add_commentary")
-    public String addCommentary() {
-        return "bookAddCommentary";
-    }
-
-    @PutMapping("/book/add_commentary")
-    public void addCommentary(
+    @PostMapping("/book/add_commentary")
+    public RedirectView addCommentary(
             @RequestParam("book_id") String bookId,
             @RequestParam("text") String text) {
-        libraryService.addCommentary(bookId, text);
+        libraryService.addCommentary(bookId.substring(1), text.substring(1));
+        return new RedirectView("/book/list", true);
     }
 
     @GetMapping("/book/add")

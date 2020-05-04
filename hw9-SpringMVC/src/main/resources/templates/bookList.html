@@ -18,13 +18,25 @@
 <a th:href="@{/book/add}" href="bookAdd.html">New book</a><br><br>
 <a th:href="@{/book/update}" href="bookUpdate.html">Update book</a><br><br>
 
+<form id="add-commentary-form" th:action="@{/book/add_commentary(book_id=${book_id},text=${text})}" th:method="post" action="bookList.html">
+    <h1>Add commentary:</h1>
+
+    <label for="holder-input">ID:</label>
+    <input id="holder-input" name="book_id" type="text" th:value="${book_id}" value="id"/>
+
+    <label for="holder-input1">text:</label>
+    <input id="holder-input1" name="text" type="text" th:value="${text}" value="text"/>
+
+    <button type="submit">add commentary</button>
+</form>
+
 <form id="delete-form" th:action="@{/book/delete(id=${id})}" th:method="post" action="bookList.html">
     <h1>Delete book:</h1>
 
-        <label for="holder-input">ID:</label>
-        <input id="holder-input" name="id" type="text" th:value="${id}" value="id"/>
+    <label for="holder-input2">ID:</label>
+    <input id="holder-input2" name="id" type="text" th:value="${id}" value="id"/>
 
-        <button type="submit">Delete</button>
+    <button type="submit">Delete</button>
 </form>
 
 <h1>Books:</h1>
