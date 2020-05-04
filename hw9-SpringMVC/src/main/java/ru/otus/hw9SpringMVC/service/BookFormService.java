@@ -34,9 +34,9 @@ public class BookFormService {
         libraryService.add(name, authorList, genreList);
     }
 
-    public void update(String id, BookForm bookForm) {
+    public void update(BookForm bookForm) {
         update(
-                id,
+                bookForm.getId(),
                 bookForm.getName(),
                 bookForm.getAuthorsString(),
                 bookForm.getGenresString()

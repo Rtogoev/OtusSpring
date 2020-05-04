@@ -20,11 +20,13 @@
 </head>
 <body>
 
-<form id="create-form" th:action="@{/book/save}" th:object="${book}" th:method="delete" accept-charset="utf-8">
+<form id="create-form" th:action="@{/book/update}" th:object="${book}" th:method="post" accept-charset="utf-8">
     <h1>New Book:</h1>
 
-    <label for="holder-input">Name:</label><br>
-    <input id="holder-input" name="name" type="text" th:value="${book.name}" value="Name"/><br><br>
+    <label for="holder-input">ID:</label><br>
+    <input id="holder-input" name="id" type="text" th:value="${book.id}" value="id"/><br><br>
+    <label for="holder-input1">Name:</label><br>
+    <input id="holder-input1" name="name" type="text" th:value="${book.name}" value="Name"/><br><br>
     <label for="holder-input2">Authors:</label><br>
     <input id="holder-input2" name="authorsString" type="text" th:value="${book.authorsString}" value="author1,author2"/><br><br>
     <label for="holder-input3">Genres:</label><br>

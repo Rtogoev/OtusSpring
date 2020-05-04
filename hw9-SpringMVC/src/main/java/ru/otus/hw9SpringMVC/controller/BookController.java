@@ -52,9 +52,10 @@ public class BookController {
         return "bookUpdate";
     }
 
-    @PutMapping("/book/update")
-    public void update(@RequestParam("book_id") String id, @ModelAttribute BookForm bookForm) {
-        bookFormService.update(id, bookForm);
+    @PostMapping("/book/update")
+    public RedirectView update(@ModelAttribute BookForm bookForm) {
+        bookFormService.update(bookForm);
+        return new RedirectView("/book/list", true);
     }
 
 

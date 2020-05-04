@@ -20,7 +20,7 @@
 </head>
 <body>
 
-<form id="create-form" th:action="@{/book/save}" th:object="${text}" th:method="put" accept-charset="utf-8">
+<form id="create-form" th:action="@{/book/save}" th:object="${text}" th:method="post" accept-charset="utf-8">
     <h1>New Book:</h1>
 
     <label for="holder-input">Name:</label><br>
