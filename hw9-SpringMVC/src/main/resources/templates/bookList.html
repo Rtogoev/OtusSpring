@@ -15,6 +15,18 @@
     </style>
 </head>
 <body>
+<a th:href="@{/book/add}" href="bookAdd.html">New book</a><br><br>
+<a th:href="@{/book/update}" href="bookUpdate.html">Update book</a><br><br>
+
+<form id="delete-form" th:action="@{/book/delete(id=${id})}" th:method="post" action="bookList.html">
+    <h1>Delete book:</h1>
+
+        <label for="holder-input">ID:</label>
+        <input id="holder-input" name="id" type="text" th:value="${id}" value="id"/>
+
+        <button type="submit">Delete</button>
+</form>
+
 <h1>Books:</h1>
 
 <table class="books">
@@ -37,6 +49,5 @@
     </tr>
     </tbody>
 </table>
-<a th:href="@{/book/add}" href="bookAdd.html">New book</a>
 </body>
 </html>

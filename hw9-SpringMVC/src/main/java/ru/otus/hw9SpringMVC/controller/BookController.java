@@ -47,7 +47,8 @@ public class BookController {
     }
 
     @GetMapping("/book/update")
-    public String update() {
+    public String update(Model model) {
+        model.addAttribute("book", new BookForm());
         return "bookUpdate";
     }
 
@@ -69,10 +70,10 @@ public class BookController {
         return new RedirectView("/book/list", true);
     }
 
-
-    @DeleteMapping("/book/delete")
-    public RedirectView remove(String id) {
-        libraryService.remove(id);
+    @PostMapping("/book/delete")
+    public RedirectView remove(@RequestParam("id") String id) {
+        // id.substring(1)  - костыль, которого я не смог избежать, потому что thymeleaf сам добавляет запятую вначале.
+        libraryService.remove(id.substring(1));
         return new RedirectView("/book/list", true);
     }
 }
