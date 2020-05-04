@@ -11,8 +11,6 @@ import ru.otus.hw9SpringMVC.model.BookForm;
 import ru.otus.hw9SpringMVC.service.BookFormService;
 import ru.otus.hw9SpringMVC.service.LibraryService;
 
-import java.util.Collections;
-
 @Controller
 public class BookController {
 
@@ -28,6 +26,7 @@ public class BookController {
     public RedirectView addCommentary(
             @RequestParam("book_id") String bookId,
             @RequestParam("text") String text) {
+        // .substring(1)  - костыль, которого я не смог избежать, потому что thymeleaf сам добавляет запятую вначале.
         libraryService.addCommentary(bookId.substring(1), text.substring(1));
         return new RedirectView("/book/list", true);
     }
@@ -63,15 +62,9 @@ public class BookController {
         return "bookList";
     }
 
-    @GetMapping("/book/get")
-    public RedirectView get(@RequestParam("book_id") String id, Model model) {
-        model.addAttribute("books", Collections.singletonList(libraryService.get(id)));
-        return new RedirectView("/book/list", true);
-    }
-
     @PostMapping("/book/delete")
     public RedirectView remove(@RequestParam("id") String id) {
-        // id.substring(1)  - костыль, которого я не смог избежать, потому что thymeleaf сам добавляет запятую вначале.
+        // .substring(1)  - костыль, которого я не смог избежать, потому что thymeleaf сам добавляет запятую вначале.
         libraryService.remove(id.substring(1));
         return new RedirectView("/book/list", true);
     }
