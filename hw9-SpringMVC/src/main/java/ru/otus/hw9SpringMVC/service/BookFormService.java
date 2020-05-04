@@ -51,7 +51,7 @@ public class BookFormService {
 
 
     public List<BookForm> getAll() {
-       return libraryService.getAll()
+        return libraryService.getAll()
                 .stream()
                 .map(this::toBookForm)
                 .collect(Collectors.toList());
@@ -68,15 +68,21 @@ public class BookFormService {
                 .map(Genre::getName)
                 .collect(Collectors.joining(","));
 
-        String commentariesString = String.join(",", book.getCommentaries());
-
         return new BookForm(
                 book.getId(),
                 book.getName(),
                 authorsString,
                 genresString,
-                commentariesString
+                joinIfNotNull(book.getCommentaries())
         );
+    }
+
+    private String joinIfNotNull(List<String> strings) {
+        if (strings == null) {
+            return "";
+        }
+
+        return String.join(",", strings);
     }
 
     public BookForm get(String id) {

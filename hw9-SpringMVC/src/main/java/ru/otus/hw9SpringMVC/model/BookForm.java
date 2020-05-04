@@ -1,11 +1,11 @@
 package ru.otus.hw9SpringMVC.model;
 
 public class BookForm {
-    private final String id;
-    private final String name;
-    private final String authorsString;
-    private final String genresString;
-    private final String commentariesString;
+    private String id;
+    private String name;
+    private String authorsString;
+    private String genresString;
+    private String commentariesString;
 
     public BookForm(
             String id,
@@ -21,23 +21,46 @@ public class BookForm {
         this.commentariesString = commentariesString;
     }
 
+    public BookForm() {
+    }
+
+    public String getCommentariesString() {
+        return commentariesString;
+    }
+
+    public void setCommentariesString(String commentariesString) {
+        this.commentariesString = commentariesString;
+    }
+
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getAuthorsString() {
         return authorsString;
+    }
+
+    public void setAuthorsString(String authorsString) {
+        this.authorsString = authorsString;
     }
 
     public String getGenresString() {
         return genresString;
     }
 
-    public String getCommentariesString() {
-        return commentariesString;
+    public void setGenresString(String genresString) {
+        this.genresString = genresString;
     }
 }

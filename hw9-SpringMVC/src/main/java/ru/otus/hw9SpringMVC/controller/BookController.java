@@ -35,7 +35,8 @@ public class BookController {
     }
 
     @GetMapping("/book/add")
-    public String add() {
+    public String add(Model model) {
+        model.addAttribute("book", new BookForm());
         return "bookAdd";
     }
 
@@ -58,7 +59,7 @@ public class BookController {
 
     @GetMapping({"/", "/book/list"})
     public String getAll(Model model) {
-        model.addAttribute("books", libraryService.getAll());
+        model.addAttribute("books", bookFormService.getAll());
         return "bookList";
     }
 
