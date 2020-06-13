@@ -6,53 +6,41 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.view.RedirectView;
-import ru.otus.hw11SpringFlux.model.BookForm;
-import ru.otus.hw11SpringFlux.service.BookFormService;
-import ru.otus.hw11SpringFlux.service.LibraryService;
+import reactor.core.publisher.Mono;
+import ru.otus.hw11SpringFlux.model.Book;
+import ru.otus.hw11SpringFlux.repository.BookRepository;
 
 @Controller
 public class BookPagesController {
 
-    private final LibraryService libraryService;
-    private final BookFormService bookFormService;
+    private final BookRepository bookRepository;
 
-    public BookPagesController(LibraryService libraryService, BookFormService bookFormService) {
-        this.libraryService = libraryService;
-        this.bookFormService = bookFormService;
-    }
-
-    @PostMapping("/book/add_commentary")
-    public RedirectView addCommentary(
-            @RequestParam("book_id") String bookId,
-            @RequestParam("text") String text) {
-        // .substring(1)  - костыль, которого я не смог избежать, потому что thymeleaf сам добавляет запятую вначале.
-        libraryService.addCommentary(bookId.substring(1), text.substring(1));
-        return new RedirectView("/", true);
+    public BookPagesController(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
     }
 
     @GetMapping("/book/add")
     public String add(Model model) {
-        model.addAttribute("book", new BookForm());
+        model.addAttribute("book", new Book());
         return "bookAdd";
     }
 
     @PostMapping("/book/save")
-    public RedirectView userSave(@ModelAttribute BookForm bookForm) {
-        bookFormService.add(bookForm);
-        return new RedirectView("/", true);
+    public String save(@ModelAttribute Book book) {
+        bookRepository.save(book);
+        return "bookList";
     }
 
     @GetMapping("/book/update")
     public String update(Model model) {
-        model.addAttribute("book", new BookForm());
+        model.addAttribute("book", new Book());
         return "bookUpdate";
     }
 
     @PostMapping("/book/update")
-    public RedirectView update(@ModelAttribute BookForm bookForm) {
-        bookFormService.update(bookForm);
-        return new RedirectView("/", true);
+    public String update(@ModelAttribute Book book) {
+        bookRepository.save(book);
+        return "bookList";
     }
 
 
@@ -62,9 +50,9 @@ public class BookPagesController {
     }
 
     @PostMapping("/book/delete")
-    public RedirectView remove(@RequestParam("id") String id) {
+    public String remove(@RequestParam("id") String id) {
         // .substring(1)  - костыль, которого я не смог избежать, потому что thymeleaf сам добавляет запятую вначале.
-        libraryService.remove(id.substring(1));
-        return new RedirectView("/", true);
+        bookRepository.removeById(id);
+        return "bookList";
     }
 }
