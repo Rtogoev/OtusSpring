@@ -5,3 +5,4 @@ spring:
       database: library
       port: 27017
       host: localhost
+users: user:{noop}userpass,admin:{noop}adminpass,guest:{noop}guestpass

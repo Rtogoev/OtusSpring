@@ -1,4 +1,4 @@
-package ru.otus.hw9SpringMVC.controller;
+package ru.otus.hw12Security.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
-import ru.otus.hw9SpringMVC.model.BookForm;
-import ru.otus.hw9SpringMVC.service.BookFormService;
-import ru.otus.hw9SpringMVC.service.LibraryService;
+import ru.otus.hw12Security.model.BookForm;
+import ru.otus.hw12Security.service.BookFormService;
+import ru.otus.hw12Security.service.LibraryService;
 
 @Controller
 public class BookController {

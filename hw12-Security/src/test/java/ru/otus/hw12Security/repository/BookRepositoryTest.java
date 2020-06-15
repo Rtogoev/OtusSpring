@@ -1,9 +1,9 @@
-package ru.otus.hw9SpringMVC.repository;
+package ru.otus.hw12Security.repository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
-import ru.otus.hw9SpringMVC.model.Book;
+import ru.otus.hw12Security.model.Book;
 
 import java.util.List;
 

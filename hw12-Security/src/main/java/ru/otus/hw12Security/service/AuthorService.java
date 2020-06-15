@@ -1,8 +1,8 @@
-package ru.otus.hw9SpringMVC.service;
+package ru.otus.hw12Security.service;
 
 import org.springframework.stereotype.Service;
-import ru.otus.hw9SpringMVC.model.Author;
-import ru.otus.hw9SpringMVC.repository.AuthorRepository;
+import ru.otus.hw12Security.model.Author;
+import ru.otus.hw12Security.repository.AuthorRepository;
 
 import java.util.List;
 import java.util.Set;

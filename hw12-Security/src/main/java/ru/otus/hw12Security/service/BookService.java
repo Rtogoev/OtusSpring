@@ -1,10 +1,10 @@
-package ru.otus.hw9SpringMVC.service;
+package ru.otus.hw12Security.service;
 
 import org.springframework.stereotype.Service;
-import ru.otus.hw9SpringMVC.model.Author;
-import ru.otus.hw9SpringMVC.model.Book;
-import ru.otus.hw9SpringMVC.model.Genre;
-import ru.otus.hw9SpringMVC.repository.BookRepository;
+import ru.otus.hw12Security.model.Author;
+import ru.otus.hw12Security.model.Book;
+import ru.otus.hw12Security.model.Genre;
+import ru.otus.hw12Security.repository.BookRepository;
 
 import java.util.ArrayList;
 import java.util.List;

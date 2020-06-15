@@ -1,4 +1,4 @@
-package ru.otus.hw9SpringMVC;
+package ru.otus.hw12Security;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

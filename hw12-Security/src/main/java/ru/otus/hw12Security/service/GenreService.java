@@ -1,8 +1,8 @@
-package ru.otus.hw9SpringMVC.service;
+package ru.otus.hw12Security.service;
 
 import org.springframework.stereotype.Service;
-import ru.otus.hw9SpringMVC.model.Genre;
-import ru.otus.hw9SpringMVC.repository.GenreRepository;
+import ru.otus.hw12Security.model.Genre;
+import ru.otus.hw12Security.repository.GenreRepository;
 
 import java.util.List;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package ru.otus.hw9SpringMVC.model;
+package ru.otus.hw12Security.model;
 
 public class BookForm {
     private String id;
