@@ -16,7 +16,7 @@
 </head>
 <body>
 <a th:href="@{/book/add}" href="bookAdd.html">New book</a><br><br>
-<a th:href="@{/book/update}" href="bookUpdate.html">Update book</a><br><br>
+<a th:href="@{/book/change}" href="bookUpdate.html">Update book</a><br><br>
 
 <form id="add-commentary-form" th:action="@{/book/add_commentary(book_id=${book_id},text=${text})}" th:method="post" action="bookList.html">
     <h1>Add commentary:</h1>

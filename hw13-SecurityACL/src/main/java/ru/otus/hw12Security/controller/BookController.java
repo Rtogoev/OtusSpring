@@ -43,7 +43,7 @@ public class BookController {
         return new RedirectView("/book/list", true);
     }
 
-    @GetMapping("/book/update")
+    @GetMapping("/book/change")
     public String update(Model model) {
         model.addAttribute("book", new BookForm());
         return "bookUpdate";

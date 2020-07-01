@@ -6,6 +6,7 @@ import ru.otus.hw12Security.model.User;
 import ru.otus.hw12Security.repository.UserRepository;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -28,6 +29,10 @@ public class UserService {
     void init() {
         userRepository.deleteAll();
         userRepository.saveAll(users);
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
     public Optional<User> findByName(String username) {
