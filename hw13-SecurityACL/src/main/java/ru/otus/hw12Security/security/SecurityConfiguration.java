@@ -7,33 +7,24 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.otus.hw12Security.service.MyUserDetailsService;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final MyUserDetailsService myUserDetailsService;
-
-    public SecurityConfiguration(MyUserDetailsService myUserDetailsService) {
-        this.myUserDetailsService = myUserDetailsService;
-    }
-
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .userDetailsService(myUserDetailsService)
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .authorizeRequests().antMatchers("/book/change").hasRole("ADMIN")
                 .and()
-                .authorizeRequests().antMatchers("/book/change").hasRole("admin")
-                .and()
-                .authorizeRequests().antMatchers("/book/add/").hasAnyRole("user")
+                .authorizeRequests().antMatchers("/book/add").hasAnyRole("USER")
                 .and()
                 .formLogin()
-                .loginProcessingUrl("/")
-                .failureForwardUrl("/error")
                 .and()
-                .rememberMe();
+                .formLogin()
+                .and()
+                .logout();
     }
 
     @Bean
@@ -54,8 +45,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("admin").password("admin").roles("admin")
+                .withUser("admin").password("adminpass").roles("ADMIN")
                 .and()
-                .withUser("user").password("user").roles("user");
+                .withUser("user").password("userpass").roles("USER");
     }
 }

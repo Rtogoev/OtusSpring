@@ -1,7 +1,5 @@
 package ru.otus.hw12Security.utils;
 
-import ru.otus.hw12Security.model.User;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,18 +13,5 @@ public class Utils {
                         commaSeparatedString.split(",")
                 )
         );
-    }
-
-    public static Set<User> toUserSet(String[] users) {
-        return Arrays.stream(users)
-                .map(
-                        user -> {
-                            String[] split = user.split(":");
-                            return new User(
-                                    split[0],
-                                    split[1]
-                            );
-                        }
-                ).collect(Collectors.toSet());
     }
 }
