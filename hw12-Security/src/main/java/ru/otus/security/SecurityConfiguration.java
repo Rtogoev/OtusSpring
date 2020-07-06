@@ -14,9 +14,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
+        http.csrf()
+                .disable()
+                .authorizeRequests().antMatchers("/book/add/").hasAnyRole("admin")
+                .and()
+                .formLogin()
                 .loginProcessingUrl("/")
-                .failureForwardUrl("/error");
+                .failureForwardUrl("/error")
+                .and()
+                .rememberMe();
     }
 
     @Bean
