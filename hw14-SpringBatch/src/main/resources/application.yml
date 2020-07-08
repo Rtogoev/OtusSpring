@@ -5,4 +5,13 @@ spring:
       database: library
       port: 27017
       host: localhost
-users: user:{noop}userpass,admin:{noop}adminpass,guest:{noop}guestpass
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+
+  batch:
+    job:
+      enabled: true
