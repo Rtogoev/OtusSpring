@@ -31,7 +31,6 @@ public class App {
     public static void main(String[] args) {
         AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(App.class);
 
-        // here we works with cafe using interface
         Nature nature = ctx.getBean(Nature.class);
         Collection<Caterpillar> babes = gotBabesToBeBorn();
         Collection<Butterfly> butterflies = nature.magicTurn(babes);
