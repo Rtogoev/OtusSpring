@@ -1,0 +1,18 @@
+spring:
+  data:
+    mongodb:
+      authentication-database: none
+      database: library
+      port: 27017
+      host: localhost
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  health:
+    defaults:
+      enabled: true
