@@ -13,6 +13,11 @@ management:
   endpoint:
     health:
       show-details: always
+    logfile:
+      enabled:
   health:
     defaults:
       enabled: true
+logging:
+  file:
+    name: "logfile.log"
