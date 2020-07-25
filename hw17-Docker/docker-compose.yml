@@ -1,0 +1,22 @@
+version: '3'
+services:
+  mongo:
+    image: "mongo"
+    ports:
+      - "27017:27017"
+    networks:
+      - network
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    privileged: true
+    ports:
+      - "8080:8080"
+    environment:
+      - MONGO_HOST=mongo
+      - WAIT_FOR=mongo:27017
+    networks:
+      - network
+networks:
+  network:

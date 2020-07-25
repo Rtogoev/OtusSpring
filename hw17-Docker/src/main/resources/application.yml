@@ -4,5 +4,6 @@ spring:
       authentication-database: none
       database: library
       port: 27017
-      host: localhost
+#      host: localhost
+      host: ${MONGO_HOST}
 users: user:{noop}userpass,admin:{noop}adminpass,guest:{noop}guestpass
