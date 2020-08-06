@@ -1,9 +1,9 @@
-package ru.otus.hw12Security.service;
+package ru.otus.hw18Hystrix.service;
 
 import org.springframework.stereotype.Service;
-import ru.otus.hw12Security.model.Author;
-import ru.otus.hw12Security.model.Book;
-import ru.otus.hw12Security.model.Genre;
+import ru.otus.hw18Hystrix.model.Author;
+import ru.otus.hw18Hystrix.model.Book;
+import ru.otus.hw18Hystrix.model.Genre;
 
 import java.util.List;
 import java.util.Set;

@@ -1,7 +1,7 @@
-package ru.otus.hw12Security.repository;
+package ru.otus.hw18Hystrix.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
-import ru.otus.hw12Security.model.Author;
+import ru.otus.hw18Hystrix.model.Author;
 
 import java.util.Optional;
 

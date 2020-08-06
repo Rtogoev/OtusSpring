@@ -1,12 +1,12 @@
-package ru.otus.hw12Security.service;
+package ru.otus.hw18Hystrix.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.context.annotation.Import;
-import ru.otus.hw12Security.model.Author;
-import ru.otus.hw12Security.model.Book;
-import ru.otus.hw12Security.model.Genre;
+import ru.otus.hw18Hystrix.model.Author;
+import ru.otus.hw18Hystrix.model.Book;
+import ru.otus.hw18Hystrix.model.Genre;
 
 import java.util.*;
 import java.util.stream.Collectors;

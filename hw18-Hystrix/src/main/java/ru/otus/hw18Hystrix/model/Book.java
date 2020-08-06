@@ -1,4 +1,4 @@
-package ru.otus.hw12Security.model;
+package ru.otus.hw18Hystrix.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;

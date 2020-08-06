@@ -1,8 +1,8 @@
-package ru.otus.hw12Security.service;
+package ru.otus.hw18Hystrix.service;
 
 import org.springframework.stereotype.Service;
-import ru.otus.hw12Security.model.Genre;
-import ru.otus.hw12Security.repository.GenreRepository;
+import ru.otus.hw18Hystrix.model.Genre;
+import ru.otus.hw18Hystrix.repository.GenreRepository;
 
 import java.util.List;
 import java.util.Set;

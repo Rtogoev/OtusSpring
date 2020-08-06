@@ -1,4 +1,5 @@
-package ru.otus.hw12Security.model;
+package ru.otus.hw18Hystrix.model;
+
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -6,29 +7,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Objects;
 
 @Document
-public class Genre {
+public class Author {
 
     @Id
     private final String id;
     private final String name;
 
-    public Genre(String id, String name) {
+    public Author(String id, String name) {
         this.id = id;
         this.name = name;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Genre genre = (Genre) o;
-        return Objects.equals(id, genre.id) &&
-                Objects.equals(name, genre.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
     }
 
     public String getId() {
@@ -40,8 +27,22 @@ public class Genre {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Author author = (Author) o;
+        return Objects.equals(id, author.id) &&
+                Objects.equals(name, author.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
+
+    @Override
     public String toString() {
-        return "Genre{" +
+        return "Author{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 '}';

@@ -1,9 +1,9 @@
-package ru.otus.hw12Security.repository;
+package ru.otus.hw18Hystrix.repository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
-import ru.otus.hw12Security.model.Author;
+import ru.otus.hw18Hystrix.model.Author;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;

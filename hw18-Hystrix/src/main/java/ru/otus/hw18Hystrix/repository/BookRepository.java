@@ -1,8 +1,8 @@
-package ru.otus.hw12Security.repository;
+package ru.otus.hw18Hystrix.repository;
 
 
 import org.springframework.data.mongodb.repository.MongoRepository;
-import ru.otus.hw12Security.model.Book;
+import ru.otus.hw18Hystrix.model.Book;
 
 public interface BookRepository extends MongoRepository<Book, String> {
 }

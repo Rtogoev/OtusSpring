@@ -1,4 +1,4 @@
-package ru.otus.hw12Security.model;
+package ru.otus.hw18Hystrix.model;
 
 public class BookForm {
     private String id;
